@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.ICoachDaoW">
+
+    <!--实体映射-->
+    <resultMap id="coach" type="com.xgh.mng.entity.Coach">
+        <!--主键id-->
+        <id property="id" column="id" javaType="Long" />
+        <!--教练名称-->
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR" />
+        <!--性别-->
+        <result property="sex" column="sex" javaType="int" jdbcType="INTEGER" />
+        <!--生日-->
+        <result property="birthday" column="birthday" javaType="Date" jdbcType="TIMESTAMP" />
+        <!--身高-->
+        <result property="height" column="height" javaType="Double" jdbcType="DOUBLE" />
+        <!--体重-->
+        <result property="weight" column="weight" javaType="Double" jdbcType="DOUBLE" />
+        <!--电话-->
+        <result property="telPhone" column="tel_phone" javaType="String" jdbcType="VARCHAR" />
+        <!--教学经历-->
+        <result property="teachingCareer" column="teaching_career" javaType="String" jdbcType="VARCHAR" />
+        <!--常驻场馆id-->
+        <result property="venueId" column="venue_id" javaType="long" jdbcType="BIGINT" />
+        <!--常驻场馆名称（包含地址和场馆名）-->
+        <result property="venueName" column="venue_name" javaType="String" jdbcType="VARCHAR" />
+        <!--运动类型id-->
+        <result property="sportId" column="sport_id" javaType="long" jdbcType="BIGINT" />
+        <!--教练简介-->
+        <result property="intro" column="intro" javaType="String" jdbcType="VARCHAR" />
+        <!--可教时间，相当于营业时间-->
+        <result property="businessTime" column="business_time" javaType="String" jdbcType="VARCHAR" />
+        <!--身份证正面照路径-->
+        <result property="idCardFront" column="id_card_front" javaType="String" jdbcType="VARCHAR" />
+        <!--身份证背面照路径-->
+        <result property="idCardBack" column="id_card_back" javaType="String" jdbcType="VARCHAR" />
+        <!--是否认证（0：未认证  1：已认证）-->
+        <result property="isTrue" column="is_true" javaType="int" jdbcType="INTEGER" />
+        <!--头像路径-->
+        <result property="headPath" column="head_path" javaType="String" jdbcType="VARCHAR" />
+        <!--头像绝对路径-->
+        <result property="headRealPath" column="head_real_path" javaType="String" jdbcType="VARCHAR" />
+        <!--是否通过审核（0：未审核  1：通过  2：未通过）-->
+        <result property="isCheck" column="is_check" javaType="int" jdbcType="INTEGER" />
+        <!--是否是热门教练（0：不是  1：是）-->
+        <result property="isRecommend" column="is_recommend" javaType="int" jdbcType="INTEGER" />
+        <!--状态（-1：已删除  0：正常  1：未删除）-->
+        <result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+        <!--创建时间-->
+        <result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+        <!--修改时间-->
+        <result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+        <!--备用字段1-->
+        <result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+        <!--备用字段2-->
+        <result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+        <!--备用字段3-->
+        <result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+        <!--备用字段4-->
+        <result property="data4" column="data_4" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段5-->
+        <result property="data5" column="data_5" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段6-->
+        <result property="data6" column="data_6" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段7-->
+        <result property="data7" column="data_7" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段8-->
+        <result property="data8" column="data_8" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段9-->
+        <result property="data9" column="data_9" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段10-->
+        <result property="data10" column="data_10" javaType="Double" jdbcType="DOUBLE" />
+        <!--备用字段11-->
+        <result property="data11" column="data_11" javaType="Double" jdbcType="DOUBLE" />
+    </resultMap>
+
+
+
+    <!-- 添加 -->
+    <insert id="add" parameterType="com.xgh.mng.entity.Coach">
+        <selectKey keyProperty="id" resultType="long" order="AFTER">
+            SELECT max(id)  AS value  from tb_coach
+        </selectKey>
+        INSERT INTO tb_coach
+        (id,name,sex,birthday,height,weight,tel_phone,teaching_career,venue_id,venue_name,sport_id,intro,business_time,id_card_front,id_card_back,is_true,head_path,head_real_path,is_check,is_recommend,status,create_date,update_date,data_1,data_2,data_3,data_4,data_5,data_6,data_7,data_8,data_9,data_10,data_11)
+        VALUES
+        (#{id},#{name},#{sex},#{birthday},#{height},#{weight},#{telPhone},#{teachingCareer},#{venueId},#{venueName},#{sportId},#{intro},#{businessTime},#{idCardFront},#{idCardBack},#{isTrue},#{headPath},#{headRealPath},#{isCheck},#{isRecommend},#{status},#{createDate},#{updateDate},#{data1},#{data2},#{data3},#{data4},#{data5},#{data6},#{data7},#{data8},#{data9},#{data10},#{data11})
+    </insert>
+
+
+    <!-- 修 改-->
+    <update id="update" parameterType="com.xgh.mng.entity.Coach">
+        UPDATE tb_coach
+        SET
+        name = #{name},
+        sex = #{sex},
+        birthday = #{birthday},
+        height = #{height},
+        weight = #{weight},
+        tel_phone = #{telPhone},
+        teaching_career = #{teachingCareer},
+        venue_id = #{venueId},
+        venue_name = #{venueName},
+        sport_id = #{sportId},
+        intro = #{intro},
+        business_time = #{businessTime},
+        id_card_front = #{idCardFront},
+        id_card_back = #{idCardBack},
+        is_true = #{isTrue},
+        head_path = #{headPath},
+        head_real_path = #{headRealPath},
+        is_check = #{isCheck},
+        is_recommend = #{isRecommend},
+        status = #{status},
+        create_date = #{createDate},
+        update_date = #{updateDate},
+        data_1 = #{data1},
+        data_2 = #{data2},
+        data_3 = #{data3},
+        data_4 = #{data4},
+        data_5 = #{data5},
+        data_6 = #{data6},
+        data_7 = #{data7},
+        data_8 = #{data8},
+        data_9 = #{data9},
+        data_10 = #{data10},
+        data_11 = #{data11}
+        WHERE id = #{id}
+    </update>
+
+    <update id="checkCoach" parameterType="com.xgh.mng.entity.Coach">
+        UPDATE tb_coach SET
+        update_date = #{updateDate},
+        is_check = #{isCheck}
+        WHERE id = #{id}
+    </update>
+</mapper>

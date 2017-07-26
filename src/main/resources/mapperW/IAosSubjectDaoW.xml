@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.IAosSubjectDaoW">
+
+	<resultMap type="com.xgh.mng.entity.AosSubject" id="aosSubjectMap">
+		<!--主键id-->
+		<id property="id" column="id" javaType="Long" />
+		<!--行业Id-->
+		<result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<!--行业编号-->
+		<result property="instCode" column="inst_code" javaType="String" jdbcType="VARCHAR" />
+		<!--公司id-->
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<!--公司编号-->
+		<result property="unitCode" column="unit_code" javaType="String" jdbcType="VARCHAR" />
+		<!--操作人-->
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<!--轮播图Id-->
+		<result property="dataId" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<!--轮播图类型 1：场馆 2：教练 3：活动-->
+		<result property="dataType" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<!--场馆/教练/活动Id-->
+		<result property="subjectId" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<!--场馆/教练/活动名称-->
+		<result property="subjectName" column="subject_name" javaType="String" jdbcType="VARCHAR" />
+		<!--logo路径，详细的logo数据在tb_file_data中处理-->
+		<result property="logoPath" column="logo_path" javaType="String" jdbcType="VARCHAR" />
+		<!--logo绝对路径-->
+		<result property="logoRealPath" column="logo_real_path" javaType="String" jdbcType="VARCHAR" />
+		<!--是否加入热门，0否，1是-->
+		<result property="isSubject" column="is_subject" javaType="int" jdbcType="INTEGER" />
+		<!--开始时间-->
+		<result property="startDate" column="start_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--结束时间-->
+		<result property="endDate" column="end_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--更新时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--排序-->
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<!---1：删除、0：不启用、1：启用-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--描述-->
+		<result property="remark" column="remark" javaType="String" jdbcType="VARCHAR" />
+		<!--区域编码-->
+		<result property="zoneCode" column="zone_code" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="add" parameterType="com.xgh.mng.entity.AosSubject">
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT max(id)  AS value  from tb_aos_subject
+		</selectKey>
+		insert into tb_aos_subject
+		(
+		inst_id,
+		inst_code,
+		unit_id,
+		unit_code,
+		user_id,
+		data_id,
+		data_type,
+		subject_id,
+		subject_name,
+		logo_path,
+		logo_real_path,
+		is_subject,
+		start_date,
+		end_date,
+		create_date,
+		update_date,
+		ord,
+		status,
+		remark,
+		zone_code
+		)
+		values (
+		#{instId,jdbcType=BIGINT},
+		#{instCode,jdbcType=VARCHAR},
+		#{unitId,jdbcType=BIGINT},
+		#{unitCode,jdbcType=VARCHAR},
+		#{userId,jdbcType=BIGINT},
+		#{dataId,jdbcType=BIGINT},
+		#{dataType,jdbcType=INTEGER},
+		#{subjectId,jdbcType=BIGINT},
+		#{subjectName,jdbcType=VARCHAR},
+		#{logoPath,jdbcType=VARCHAR},
+		#{logoRealPath,jdbcType=VARCHAR},
+		#{isSubject,jdbcType=INTEGER},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{ord,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{remark,jdbcType=VARCHAR},
+		#{zoneCode,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.xgh.mng.entity.AosSubject">
+		update tb_aos_subject
+		set
+			inst_id = #{instId,jdbcType=BIGINT},
+			inst_code = #{instCode,jdbcType=VARCHAR},
+		    unit_id = #{unitId,jdbcType=BIGINT},
+			unit_code = #{unitCode,jdbcType=VARCHAR},
+			user_id = #{userId,jdbcType=BIGINT},
+			data_id = #{dataId,jdbcType=BIGINT},
+			data_type = #{dataType,jdbcType=INTEGER},
+			subject_id = #{subjectId,jdbcType=BIGINT},
+			subject_name = #{subjectName,jdbcType=VARCHAR},
+			logo_path = #{logoPath,jdbcType=VARCHAR},
+			logo_real_path = #{logoRealPath,jdbcType=VARCHAR},
+			is_subject = #{isSubject,jdbcType=INTEGER},
+			start_date = #{startDate,jdbcType=TIMESTAMP},
+			end_date = #{endDate,jdbcType=TIMESTAMP},
+			create_date = #{createDate,jdbcType=TIMESTAMP},
+			update_date = #{updateDate,jdbcType=TIMESTAMP},
+			ord = #{ord,jdbcType=INTEGER},
+			status = #{status,jdbcType=INTEGER},
+			remark = #{remark,jdbcType=VARCHAR},
+			zone_code = #{zoneCode,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_aos_subject
+		where
+		id = #{id}
+	</delete>
+</mapper>

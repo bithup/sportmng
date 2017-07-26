@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.IActivityDaoW">
+	<resultMap type="com.xgh.mng.entity.Activity" id="activityMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityName" column="activity_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityType" column="activity_type" javaType="int" jdbcType="INTEGER" />
+		<result property="activityOrganizer" column="activity_organizer" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityCount" column="activity_count" javaType="int" jdbcType="INTEGER" />
+		<result property="activityAddress" column="activity_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="sportId" column="sport_id" javaType="long" jdbcType="BIGINT" />
+		<result property="venueId" column="venue_id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityPrice" column="activity_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="activityIntroduce" column="activity_introduce" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityContacts" column="activity_contacts" javaType="string" jdbcType="VARCHAR" />
+		<result property="contactsPhone" column="contacts_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityPath" column="activity_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityRealPath" column="activity_real_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="declares" column="declares" javaType="string" jdbcType="VARCHAR" />
+		<result property="isRecommend" column="is_recommend" javaType="int" jdbcType="INTEGER" />
+		<result property="isFree" column="is_free" javaType="int" jdbcType="INTEGER" />
+		<result property="isCheck" column="is_check" javaType="int" jdbcType="INTEGER" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="enrollDate" column="enroll_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="BIGINT" />
+		<result property="data1" column="data_1"  javaType="long" jdbcType="BIGINT"/>
+		<result property="data2" column="data_2"  javaType="long" jdbcType="BIGINT"/>
+		<result property="data3" column="data_3"  javaType="long" jdbcType="BIGINT"/>
+		<result property="data4" column="data_4"  javaType="double" jdbcType="DOUBLE"/>
+		<result property="data5" column="data_5"  javaType="double" jdbcType="DOUBLE"/>
+		<result property="data6" column="data_6"  javaType="int" jdbcType="INTEGER"/>
+		<result property="data7" column="data_7"  javaType="int" jdbcType="INTEGER"/>
+		<result property="data8" column="data_8"  javaType="int" jdbcType="INTEGER"/>
+		<result property="data9" column="data_9"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="data10" column="data_10"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="data11" column="data_11"  javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<insert id="add" parameterType="com.xgh.mng.entity.Activity">
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT max(id)  AS value  from tb_activity
+		</selectKey>
+		insert into tb_activity
+		(
+		unit_id,
+		user_id,
+		activity_name,
+		activity_type,
+		activity_organizer,
+		activity_count,
+		activity_address,
+		sport_id,
+		venue_id,
+		activity_price,
+		activity_introduce,
+		activity_contacts,
+		contacts_phone,
+		activity_path,
+		activity_real_path,
+		declares,
+		is_recommend,
+		is_free,
+		is_check,
+		start_date,
+		end_date,
+		enroll_date,
+		create_date,
+		update_date,
+		ord,
+		status,
+		data_1,
+		data_2,
+		data_3,
+		data_4,
+		data_5,
+		data_6,
+		data_7,
+		data_8,
+		data_9,
+		data_10,
+		data_11
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{activityName,jdbcType=VARCHAR},
+	    #{activityType,jdbcType=INTEGER},
+		#{activityOrganizer,jdbcType=VARCHAR},
+		#{activityCount,jdbcType=INTEGER},
+		#{activityAddress,jdbcType=VARCHAR},
+		#{sportId,jdbcType=BIGINT},
+		#{venueId,jdbcType=BIGINT},
+		#{activityPrice,jdbcType=DOUBLE},
+		#{activityIntroduce,jdbcType=VARCHAR},
+		#{activityContacts,jdbcType=VARCHAR},
+		#{contactsPhone,jdbcType=VARCHAR},
+		#{activityPath,jdbcType=VARCHAR},
+		#{activityRealPath,jdbcType=VARCHAR},
+		#{declares,jdbcType=VARCHAR},
+		#{isRecommend,jdbcType=INTEGER},
+		#{isFree,jdbcType=INTEGER},
+		#{isCheck,jdbcType=INTEGER},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{enrollDate,jdbcType=TIMESTAMP},
+	  	#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{ord,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{data1,jdbcType=BIGINT},
+		#{data2,jdbcType=BIGINT},
+		#{data3,jdbcType=BIGINT},
+		#{data4,jdbcType=DOUBLE},
+		#{data5,jdbcType=DOUBLE},
+		#{data6,jdbcType=INTEGER},
+		#{data7,jdbcType=INTEGER},
+		#{data8,jdbcType=INTEGER},
+		#{data9,jdbcType=VARCHAR},
+		#{data10,jdbcType=VARCHAR},
+		#{data11,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="addBatch" parameterType="com.xgh.mng.entity.Activity">
+		insert into tb_activity
+		(
+		unit_id,
+		user_id,
+		activity_name,
+		activity_type,
+		activity_organizer,
+		activity_count,
+		activity_address,
+		sport_id,
+		venue_id,
+		activity_price,
+		activity_introduce,
+		activity_contacts,
+		contacts_phone,
+		activity_path,
+		activity_real_path,
+		declares,
+		is_recommend,
+		is_free,
+		is_check,
+		start_date,
+		end_date,
+		enroll_date,
+		create_date,
+		update_date,
+		ord,
+		status,
+		data_1,
+		data_2,
+		data_3,
+		data_4,
+		data_5,
+		data_6,
+		data_7,
+		data_8,
+		data_9,
+		data_10,
+		data_11
+		)
+		values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.unitId,jdbcType=BIGINT},
+			#{item.userId,jdbcType=BIGINT},
+			#{item.activityName,jdbcType=VARCHAR},
+			#{item.activityType,jdbcType=INTEGER},
+			#{item.activityOrganizer,jdbcType=VARCHAR},
+			#{item.activityCount,jdbcType=INTEGER},
+			#{item.activityAddress,jdbcType=VARCHAR},
+			#{item.sportId,jdbcType=BIGINT},
+			#{item.venueId,jdbcType=BIGINT},
+			#{item.activityPrice,jdbcType=DOUBLE},
+			#{item.activityIntroduce,jdbcType=VARCHAR},
+			#{item.activityContacts,jdbcType=VARCHAR},
+			#{item.contactsPhone,jdbcType=VARCHAR},
+			#{item.activityPath,jdbcType=VARCHAR},
+			#{item.activityRealPath,jdbcType=VARCHAR},
+			#{item.declares,jdbcType=VARCHAR},
+			#{item.isRecommend,jdbcType=INTEGER},
+			#{item.isFree,jdbcType=INTEGER},
+			#{item.isCheck,jdbcType=INTEGER},
+			#{item.startDate,jdbcType=TIMESTAMP},
+			#{item.endDate,jdbcType=TIMESTAMP},
+			#{item.enrollDate,jdbcType=TIMESTAMP},
+			#{item.createDate,jdbcType=TIMESTAMP},
+			#{item.updateDate,jdbcType=TIMESTAMP},
+			#{item.ord,jdbcType=INTEGER},
+			#{item.status,jdbcType=INTEGER},
+			#{item.data1,jdbcType=BIGINT},
+			#{item.data2,jdbcType=BIGINT},
+			#{item.data3,jdbcType=BIGINT},
+			#{item.data4,jdbcType=DOUBLE},
+			#{item.data5,jdbcType=DOUBLE},
+			#{item.data6,jdbcType=INTEGER},
+			#{item.data7,jdbcType=INTEGER},
+			#{item.data8,jdbcType=INTEGER},
+			#{item.data9,jdbcType=VARCHAR},
+			#{item.data10,jdbcType=VARCHAR},
+			#{item.data11,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.xgh.mng.entity.Activity">
+		update tb_activity
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		user_id = #{userId,jdbcType=BIGINT},
+		activity_name = #{activityName,jdbcType=VARCHAR},
+	    activity_type = #{activityType,jdbcType=INTEGER},
+		activity_organizer = #{activityOrganizer,jdbcType=VARCHAR},
+		activity_count = #{activityCount,jdbcType=INTEGER},
+		activity_address = #{activityAddress,jdbcType=VARCHAR},
+		sport_id = #{sportId,jdbcType=BIGINT},
+		venue_id = #{venueId,jdbcType=BIGINT},
+		activity_price = #{activityPrice,jdbcType=DOUBLE},
+		activity_introduce = #{activityIntroduce,jdbcType=VARCHAR},
+		activity_contacts = #{activityContacts,jdbcType=VARCHAR},
+		contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+		activity_path = #{activityPath,jdbcType=VARCHAR},
+		activity_real_path = #{activityRealPath,jdbcType=VARCHAR},
+		declares = #{declares,jdbcType=VARCHAR},
+		is_recommend = #{isRecommend,jdbcType=INTEGER},
+		is_free = #{isFree,jdbcType=INTEGER},
+		is_check = #{isCheck,jdbcType=INTEGER},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		enroll_date = #{enrollDate,jdbcType=TIMESTAMP},
+	  	create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		ord = #{ord,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		data_1 = #{data1,jdbcType=BIGINT},
+		data_2 = #{data2,jdbcType=BIGINT},
+		data_3 = #{data3,jdbcType=BIGINT},
+		data_4 = #{data4,jdbcType=DOUBLE},
+		data_5 = #{data5,jdbcType=DOUBLE},
+		data_6 = #{data6,jdbcType=INTEGER},
+		data_7 = #{data7,jdbcType=INTEGER},
+		data_8 = #{data8,jdbcType=INTEGER},
+		data_9 = #{data9,jdbcType=VARCHAR},
+		data_10 = #{data10,jdbcType=VARCHAR},
+		data_11 = #{data11,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<update id="checkActivity" parameterType="com.xgh.mng.entity.Activity">
+		UPDATE tb_activity SET
+		update_date = #{updateDate},
+		is_check = #{isCheck}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_activity
+		where
+		id = #{id} 
+	</delete>
+</mapper>

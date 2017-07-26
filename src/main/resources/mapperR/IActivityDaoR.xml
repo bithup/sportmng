@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.IActivityDaoR">
+	<resultMap type="com.xgh.mng.entity.Activity" id="activityMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityName" column="activity_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityType" column="activity_type" javaType="int" jdbcType="INTEGER" />
+		<result property="activityOrganizer" column="activity_organizer" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityCount" column="activity_count" javaType="int" jdbcType="INTEGER" />
+		<result property="activityAddress" column="activity_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="sportId" column="sport_id" javaType="long" jdbcType="BIGINT" />
+		<result property="venueId" column="venue_id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityPrice" column="activity_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="activityIntroduce" column="activity_introduce" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityContacts" column="activity_contacts" javaType="string" jdbcType="VARCHAR" />
+		<result property="contactsPhone" column="contacts_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityPath" column="activity_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityRealPath" column="activity_real_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="isRecommend" column="is_recommend" javaType="int" jdbcType="INTEGER" />
+		<result property="isFree" column="is_free" javaType="int" jdbcType="INTEGER" />
+		<result property="isCheck" column="is_check" javaType="int" jdbcType="INTEGER" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="enrollDate" column="enroll_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="BIGINT" />
+        <result property="data1" column="data_1"  javaType="long" jdbcType="BIGINT"/>
+		<result property="data2" column="data_2"  javaType="long" jdbcType="BIGINT"/>
+		<result property="data3" column="data_3"  javaType="long" jdbcType="BIGINT"/>
+		<result property="data4" column="data_4"  javaType="double" jdbcType="DOUBLE"/>
+		<result property="data5" column="data_5"  javaType="double" jdbcType="DOUBLE"/>
+		<result property="data6" column="data_6"  javaType="int" jdbcType="INTEGER"/>
+		<result property="data7" column="data_7"  javaType="int" jdbcType="INTEGER"/>
+		<result property="data8" column="data_8"  javaType="int" jdbcType="INTEGER"/>
+		<result property="data9" column="data_9"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="data10" column="data_10"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="data11" column="data_11"  javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<resultMap type="java.util.Map" id="activityMap2">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ACTIVITY_NAME" column="activity_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACTIVITY_TYPE" column="activity_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ACTIVITY_ORGANIZER" column="activity_organizer" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACTIVITY_COUNT" column="activity_count" javaType="int" jdbcType="INTEGER" />
+		<result property="ACTIVITY_ADDRESS" column="activity_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="SPORT_ID" column="sport_id" javaType="long" jdbcType="BIGINT" />
+		<result property="VENUE_ID" column="venue_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ACTIVITY_PRICE" column="activity_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="ACTIVITY_INTRODUCE" column="activity_introduce" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACTIVITY_CONTACTS" column="activity_contacts" javaType="string" jdbcType="VARCHAR" />
+		<result property="CONTACTS_PHONE" column="contacts_phone" javaType="int" jdbcType="INTEGER" />
+		<result property="ACTIVITY_PATH" column="activity_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACTIVITY_REAL_PATH" column="activity_real_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="DECLARES" column="declares" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_RECOMMEND" column="is_recommend" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_FREE" column="is_free" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_CHECK" column="is_check" javaType="int" jdbcType="INTEGER" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ENROLL_DATE" column="enroll_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="BIGINT" />
+		<result property="DATA1" column="data_1"  javaType="long" jdbcType="BIGINT"/>
+		<result property="DATA2" column="data_2"  javaType="long" jdbcType="BIGINT"/>
+		<result property="DATA3" column="data_3"  javaType="long" jdbcType="BIGINT"/>
+		<result property="DATA4" column="data_4"  javaType="double" jdbcType="DOUBLE"/>
+		<result property="DATA5" column="data_5"  javaType="double" jdbcType="DOUBLE"/>
+		<result property="DATA6" column="data_6"  javaType="int" jdbcType="INTEGER"/>
+		<result property="DATA7" column="data_7"  javaType="int" jdbcType="INTEGER"/>
+		<result property="DATA8" column="data_8"  javaType="int" jdbcType="INTEGER"/>
+		<result property="DATA9" column="data_9"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="DATA10" column="data_10"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="DATA11" column="data_11"  javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="get" parameterType="long" resultMap="activityMap">
+		select * from tb_activity where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="hashmap" resultMap="activityMap">
+		select
+		*
+		from
+		tb_activity
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="id!= null and id!=''">
+				and id = #{id}
+				</if>
+			</trim>
+		limit 0,10
+	</select>
+
+	<!--<select id="getListPage" parameterType="hashmap" resultMap="activityMap">-->
+	<select id="getListPage" parameterType="hashmap" resultType="hashmap">
+		select
+		ac.id AS id,
+		ac.unit_id AS unitId,
+		ac.user_id AS userId,
+		ac.activity_name AS activityName,
+		ac.activity_type AS activityType,
+		ac.activity_organizer AS activityOrganizer,
+		ac.activity_count AS activityCount,
+		ac.activity_address AS activityAddress,
+		ac.sport_id AS sportId,
+		ac.venue_id AS venueId,
+		ac.activity_price AS activityPrice,
+		ac.activity_introduce AS activityIntroduce,
+		ac.activity_contacts AS activityContacts,
+		ac.contacts_phone AS contactsPhone,
+		ac.activity_path AS activityPath,
+		ac.activity_real_path AS activityRealPath,
+		ac.declares AS declares,
+		ac.is_recommend AS isRecommend,
+		ac.is_free AS isFree,
+		ac.start_date AS startDate,
+		ac.end_date AS endDate,
+		ac.enroll_date AS enrollDate,
+		ac.is_check AS isCheck,
+		ac.create_date AS createDate,
+		ac.update_date AS updateDate,
+		ac.ord AS ord,
+		ac.status AS status,
+		ac.data_1 AS data1,
+		ac.data_2 AS data2,
+		ac.data_3 AS data3,
+		ac.data_4 AS data4,
+		ac.data_5 AS data5,
+		ac.data_6 AS data6,
+		ac.data_7 AS data7,
+		ac.data_8 AS data8,
+		ac.data_9 AS data9,
+		ac.data_10 AS data10,
+		ac.data_11 AS data11
+		from
+		tb_activity ac,
+		tb_kinds k
+		where
+		ac.sport_id=k.id
+		and
+		ac.status = 1
+        <if test="isRecommend!=null and isRecommend!=''">
+			AND ac.is_recommend = #{isRecommend}
+		</if>
+		<if test="isCheck!=null and isCheck!=''">
+			AND (ac.is_check = 0 OR ac.is_check = 2)
+		</if>
+		<if test="activityName!=null and activityName!=''">
+			AND activity_name like '%${activityName}%'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			AND ac.create_date>#{startTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			AND #{endTime}>ac.create_date
+		</if>
+		AND ac.unit_id = #{unitId}
+		order by ord desc
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_activity
+		where
+		status = 1
+		<if test="isRecommend!=null and isRecommend!=''">
+			AND is_recommend = #{isRecommend}
+		</if>
+		<if test="isCheck!=null and isCheck!=''">
+			AND is_check = 0 OR is_check = 2
+		</if>
+		<if test="activityName!=null and activityName!=''">
+			AND activity_name like '%${activityName}%'
+		</if>
+		<if test="startTime != null and startTime != ''">
+			AND create_date>#{startTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			AND #{endTime}>create_date
+		</if>
+		AND unit_id = #{unitId}
+	</select>
+
+	<select id="getActivityTree" parameterType="hashmap" resultType="hashmap">
+		select
+		id as id,
+		activity_name as text,
+		from
+		tb_activity
+		where
+		status = 1
+		and unit_id = #{unitId}
+  	</select>
+</mapper>

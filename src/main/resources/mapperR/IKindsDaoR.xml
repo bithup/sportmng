@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.IKindsDaoR">
+	<!--实体映射-->
+	<resultMap id="kindsMap" type="com.xgh.mng.entity.Kinds">
+		<!---->
+		<id property="id" column="id" javaType="Long" />
+		<!--生产规则 101000+id-->
+		<result property="nid" column="nid" javaType="long" jdbcType="BIGINT" />
+		<!--父Id-->
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<!--行业id-->
+		<result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<!--行业编号-->
+		<result property="instCode" column="inst_code" javaType="String" jdbcType="VARCHAR" />
+		<!--操作人员的Id-->
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<!--种类编码-->
+		<result property="code" column="code" javaType="String" jdbcType="VARCHAR" />
+		<!--父编码-->
+		<result property="parentCode" column="parent_code" javaType="String" jdbcType="VARCHAR" />
+		<!--前置code，从后向前递推处理-->
+		<result property="preCode" column="pre_code" javaType="String" jdbcType="VARCHAR" />
+		<!--分类名称-->
+		<result property="name" column="name" javaType="String" jdbcType="VARCHAR" />
+		<!--拼音码-->
+		<result property="spellName" column="spell_name" javaType="String" jdbcType="VARCHAR" />
+		<!--拼音首字母-->
+		<result property="spellFirstName" column="spell_first_name" javaType="String" jdbcType="VARCHAR" />
+		<!--等级-->
+		<result property="level" column="level" javaType="int" jdbcType="INTEGER" />
+		<!--运动项图片路径-->
+		<result property="sportUrl" column="sport_url" javaType="String" jdbcType="VARCHAR" />
+		<!--运动项图片绝对路径-->
+		<result property="sportRealUrl" column="sport_real_url" javaType="String" jdbcType="VARCHAR" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--更新时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--排序-->
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<!--0废弃，1使用-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--备注-->
+		<result property="remark" column="remark" javaType="String" jdbcType="VARCHAR" />
+		<!--区域编码-->
+		<result property="zoneCode" column="zone_code" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段1-->
+		<result property="data1" column="data_1" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段2-->
+		<result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段3-->
+		<result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段4-->
+		<result property="data4" column="data_4" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="get" parameterType="long" resultMap="kindsMap">
+		select * from tb_kinds where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.xgh.mng.entity.Kinds"
+			resultMap="kindsMap">
+		select * from
+		tb_kinds
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+			<if test="id!= null">
+				and id = #{id}
+			</if>
+		</trim>
+	</select>
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="kindsMap">
+		SELECT
+		*
+		FROM
+		tb_kinds
+		where parent_id = #{parentId} and inst_id = #{instId} and status = 1
+		order by ord desc
+		limit ${(page-1)*pagesize},${pagesize}
+
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_kinds
+		<if test="keyKinds!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyKinds.id!= null">
+					and id = #{keyKinds.id}
+				</if>
+			</trim>
+		</if>
+	</select>
+
+
+	<select id="getChildTreeData" parameterType="hashmap" resultType="hashmap">
+		select
+		t.id as id,
+		t.parent_id as pid,
+		t.name as text,
+		t.level as level
+		from
+		tb_kinds t where inst_id = #{instId} and parent_id=#{parentId} and status = 1
+	</select>
+
+	<select id="getChildData" parameterType="hashmap" resultMap="kindsMap">
+		select
+		*
+		from
+		tb_kinds t where inst_id = #{instId} and parent_id=#{parentId} and status = 1
+	</select>
+
+
+	<select id="isHasChild" parameterType="long" resultType="long">
+		select
+		count(id)
+		from
+		tb_kinds
+		where parent_id = #{parentId}
+		AND
+		status=1
+	</select>
+</mapper>

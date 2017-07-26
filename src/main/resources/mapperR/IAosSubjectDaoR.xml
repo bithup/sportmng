@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.IAosSubjectDaoR">
+	<resultMap type="com.xgh.mng.entity.AosSubject" id="aosSubjectMap">
+		<!--主键id-->
+		<id property="id" column="id" javaType="Long" />
+		<!--行业Id-->
+		<result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<!--行业编号-->
+		<result property="instCode" column="inst_code" javaType="String" jdbcType="VARCHAR" />
+		<!--公司id-->
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<!--公司编号-->
+		<result property="unitCode" column="unit_code" javaType="String" jdbcType="VARCHAR" />
+		<!--操作人-->
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<!--轮播图Id-->
+		<result property="dataId" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<!--轮播图类型 1：场馆 2：教练 3：活动-->
+		<result property="dataType" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<!--场馆/教练/活动Id-->
+		<result property="subjectId" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<!--场馆/教练/活动名称-->
+		<result property="subjectName" column="subject_name" javaType="String" jdbcType="VARCHAR" />
+		<!--logo路径，详细的logo数据在tb_file_data中处理-->
+		<result property="logoPath" column="logo_path" javaType="String" jdbcType="VARCHAR" />
+		<!--logo绝对路径-->
+		<result property="logoRealPath" column="logo_real_path" javaType="String" jdbcType="VARCHAR" />
+		<!--是否加入热门，0否，1是-->
+		<result property="isSubject" column="is_subject" javaType="int" jdbcType="INTEGER" />
+		<!--开始时间-->
+		<result property="startDate" column="start_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--结束时间-->
+		<result property="endDate" column="end_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--更新时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--排序-->
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<!---1：删除、0：不启用、1：启用-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--描述-->
+		<result property="remark" column="remark" javaType="String" jdbcType="VARCHAR" />
+		<!--区域编码-->
+		<result property="zoneCode" column="zone_code" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap type="java.util.Map" id="aosSubjectMap2">
+		<!--主键id-->
+		<id property="ID" column="id" javaType="Long" />
+		<!--行业Id-->
+		<result property="INST_ID" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<!--行业编号-->
+		<result property="INST_CODE" column="inst_code" javaType="String" jdbcType="VARCHAR" />
+		<!--公司id-->
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<!--公司编号-->
+		<result property="UNIT_CODE" column="unit_code" javaType="String" jdbcType="VARCHAR" />
+		<!--操作人-->
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<!--轮播图Id-->
+		<result property="DATA_ID" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<!--轮播图类型 1：场馆 2：教练 3：活动-->
+		<result property="DATA_TYPE" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<!--场馆/教练/活动Id-->
+		<result property="SUBJECT_ID" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<!--场馆/教练/活动名称-->
+		<result property="SUBJECT_NAME" column="subject_name" javaType="String" jdbcType="VARCHAR" />
+		<!--logo路径，详细的logo数据在tb_file_data中处理-->
+		<result property="LOGO_PATH" column="logo_path" javaType="String" jdbcType="VARCHAR" />
+		<!--logo绝对路径-->
+		<result property="LOGO_REAL_PATH" column="logo_real_path" javaType="String" jdbcType="VARCHAR" />
+		<!--是否加入热门，0否，1是-->
+		<result property="IS_SUBJECT" column="is_subject" javaType="int" jdbcType="INTEGER" />
+		<!--开始时间-->
+		<result property="START_DATE" column="start_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--结束时间-->
+		<result property="END_DATE" column="end_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--创建时间-->
+		<result property="CREATE_DATE" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--更新时间-->
+		<result property="UPDATE_DATE" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--排序-->
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+		<!---1：删除、0：不启用、1：启用-->
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--描述-->
+		<result property="REMARK" column="remark" javaType="String" jdbcType="VARCHAR" />
+		<!--区域编码-->
+		<result property="ZONE_CODE" column="zone_code" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="get" parameterType="long" resultMap="aosSubjectMap">
+		select * from tb_aos_subject where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="hashmap" resultMap="aosSubjectMap">
+		select
+		*
+		from
+		tb_aos_subject
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="id!= null and id!=''">
+				and id = #{id}
+				</if>
+			</trim>
+		limit 0,10
+	</select>
+
+	<select id="getListPage" parameterType="hashmap" resultType="hashmap">
+		select
+		ao.id AS id,
+		ao.inst_id AS instId,
+		ao.inst_code AS instCode,
+		ao.unit_id AS unitId,
+		ao.unit_code AS unitCode,
+		ao.user_id AS userId,
+		ao.data_id AS dataId,
+		ao.data_type AS dataType,
+		ao.subject_id AS subjectId,
+		ao.subject_name AS subjectName,
+		ao.logo_path AS logoPath,
+		ao.logo_real_path AS logoRealPath,
+		ao.is_subject AS isSubject,
+		ao.start_date AS startDate,
+		ao.end_date AS endDate,
+		ao.create_date AS createDate,
+		ao.update_date AS updateDate,
+		ao.ord AS ord,
+		ao.status AS status,
+	    ao.remark AS remark,
+		ao.zone_code AS zoneCode
+		from
+		tb_aos_subject ao
+		where
+		ao.status = 1
+		AND ao.unit_id = #{unitId}
+		AND ao.data_id = #{dataId}
+		order by ord desc
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_aos_subject
+		where
+		status = 1
+		AND unit_id = #{unitId}
+	</select>
+
+</mapper>

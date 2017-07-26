@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.ICoachCourseDaoR">
+
+    <!--实体映射-->
+    <resultMap id="coachCourse" type="com.xgh.mng.entity.CoachCourse">
+        <!--主键id-->
+        <id property="id" column="id" javaType="Long"/>
+        <!--教练id-->
+        <result property="coachId" column="coach_id" javaType="long" jdbcType="BIGINT"/>
+        <!--课程类型（1：月份  2：季份  3：年份）-->
+        <result property="courseType" column="course_type" javaType="int" jdbcType="INTEGER"/>
+        <!--课程名称-->
+        <result property="courseName" column="course_name" javaType="String" jdbcType="VARCHAR"/>
+        <!--课程介绍-->
+        <result property="introduct" column="introduct" javaType="String" jdbcType="VARCHAR"/>
+        <!--上课时间-->
+        <result property="courseTime" column="course_time" javaType="String" jdbcType="VARCHAR"/>
+        <!--单价-->
+        <result property="price" column="price" javaType="Double" jdbcType="DOUBLE"/>
+        <!--优惠价-->
+        <result property="salesPrice" column="sales_price" javaType="Double" jdbcType="DOUBLE"/>
+        <!--开始时间-->
+        <result property="startDate" column="start_date" javaType="String" jdbcType="VARCHAR"/>
+        <!--结束时间-->
+        <result property="endDate" column="end_date" javaType="String" jdbcType="VARCHAR"/>
+        <!--主图存储路径-->
+        <result property="picPath" column="pic_path" javaType="String" jdbcType="VARCHAR"/>
+        <!--主图存储绝对路径-->
+        <result property="picRealPath" column="pic_real_path" javaType="String" jdbcType="VARCHAR"/>
+        <!--状态（-1：已删除  0：可预约  1：过期）-->
+        <result property="status" column="status" javaType="int" jdbcType="INTEGER"/>
+        <!--创建时间-->
+        <result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP"/>
+        <!--修改时间-->
+        <result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP"/>
+        <!--备用字段1-->
+        <result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR"/>
+        <!--备用字段2-->
+        <result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR"/>
+        <!--备用字段3-->
+        <result property="data3" column="data_3" javaType="long" jdbcType="BIGINT"/>
+        <!--备用字段4-->
+        <result property="data4" column="data_4" javaType="long" jdbcType="BIGINT"/>
+        <!--备用字段5-->
+        <result property="data5" column="data_5" javaType="int" jdbcType="INTEGER"/>
+        <!--备用字段6-->
+        <result property="data6" column="data_6" javaType="int" jdbcType="INTEGER"/>
+        <!--备用字段7-->
+        <result property="data7" column="data_7" javaType="Double" jdbcType="DOUBLE"/>
+        <!--备用字段8-->
+        <result property="data8" column="data_8" javaType="Double" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <select id="get" resultMap="coachCourse" parameterType="long">
+        SELECT
+        *
+        FROM tb_coach_course
+        WHERE id = #{id}
+    </select>
+
+    <select id="getList" parameterType="hashmap" resultMap="coachCourse">
+        select
+        *
+        from
+        tb_coach_course
+        <if test="keyGoods!= null">
+            <trim prefix="WHERE" prefixOverrides="AND |OR ">
+                <if test="id!= null and id!=''">
+                    and id = #{id} and status=1
+                </if>
+            </trim>
+        </if>
+        limit 0,10
+    </select>
+    <select id="getRows" parameterType="hashmap" resultType="long">
+        select
+        count(*) from
+        tb_coach_course
+        where
+        1=1
+        AND coach_id = #{coachId}
+    </select>
+    <select id="getListPage" parameterType="hashmap" resultType="hashmap">
+       SELECT
+       id as id,
+        course_type as courseType,
+        course_name as courseName,
+        price as price,
+        sales_price as salesPrice,
+        start_date as startDate,
+        end_date as endDate,
+        create_date as createDate,
+        course_time as courseTime
+       FROM
+	   tb_coach_course
+	   WHERE
+	   1=1
+       AND coach_id = #{coachId} and status= 1
+       limit ${(page-1)*pagesize},${pagesize}
+    </select>
+
+</mapper>

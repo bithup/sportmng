@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.IVenueDaoW">
+
+    <!--场馆-->
+    <resultMap id="venueMap" type="com.xgh.mng.entity.Venue">
+        <!--主键id-->
+        <id property="id" column="id" javaType="Long" />
+        <!--行业id-->
+        <result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+        <!--行业编码-->
+        <result property="instCode" column="inst_code" javaType="String" jdbcType="VARCHAR" />
+        <!--代理id-->
+        <result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+        <!--代理编码-->
+        <result property="unitCode" column="unit_code" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆名称-->
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆详细地址-->
+        <result property="address" column="address" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆区域id-->
+        <result property="zoneId" column="zone_id" javaType="long" jdbcType="BIGINT" />
+        <!--场馆所属区域（省市区）-->
+        <result property="zoneName" column="zone_name" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆区域编码-->
+        <result property="zoneCode" column="zone_code" javaType="String" jdbcType="VARCHAR" />
+        <!--联系电话-->
+        <result property="telephone" column="telephone" javaType="String" jdbcType="VARCHAR" />
+        <!--移动电话-->
+        <result property="mobile" column="mobile" javaType="String" jdbcType="VARCHAR" />
+        <!--联系人-->
+        <result property="contact" column="contact" javaType="String" jdbcType="VARCHAR" />
+        <!--联系人性别（0：男  1：女）-->
+        <result property="sex" column="sex" javaType="int" jdbcType="INTEGER" />
+        <!--场馆简介-->
+        <result property="introduction" column="introduction" javaType="String" jdbcType="VARCHAR" />
+        <!--营业时间-->
+        <result property="businessTime" column="business_time" javaType="String" jdbcType="VARCHAR" />
+        <!--营业起始时间-->
+        <result property="startTime" column="start_time" javaType="String" jdbcType="VARCHAR" />
+        <!--营业截止时间-->
+        <result property="endTime" column="end_time" javaType="String" jdbcType="VARCHAR" />
+        <!--营业执照编号-->
+        <result property="licenseNo" column="license_no" javaType="String" jdbcType="VARCHAR" />
+        <!--法人代表-->
+        <result property="artificilPerson" column="artificil_person" javaType="String" jdbcType="VARCHAR" />
+        <!--组成形式-->
+        <result property="organizationType" column="organization_type" javaType="String" jdbcType="VARCHAR" />
+        <!--营业执照存储路径-->
+        <result property="licenseUrl" column="license_url" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆主图存储路径-->
+        <result property="pictureUrl" column="picture_url" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆主图存储绝对路径-->
+        <result property="picRealPath" column="pic_real_path" javaType="String" jdbcType="VARCHAR" />
+        <!--经营者身份证正面照路径-->
+        <result property="idCardFront" column="id_card_front" javaType="String" jdbcType="VARCHAR" />
+        <!--经营者身份证背面照路径-->
+        <result property="idCardBack" column="id_card_back" javaType="String" jdbcType="VARCHAR" />
+        <!--公交交通信息-->
+        <result property="busInfo" column="bus_info" javaType="String" jdbcType="VARCHAR" />
+        <!--地铁交通信息-->
+        <result property="subwayInfo" column="subway_info" javaType="String" jdbcType="VARCHAR" />
+        <!--服务信息（如免费WiFi，免费停车）-->
+        <result property="serviceInfo" column="service_info" javaType="String" jdbcType="VARCHAR" />
+        <!--硬件设备信息（如多少个跑步机、游泳池）-->
+        <result property="hardware" column="hardware" javaType="String" jdbcType="VARCHAR" />
+        <!--是否通过审核（0：未审核  1：通过  2：未通过）-->
+        <result property="isCheck" column="is_check" javaType="int" jdbcType="INTEGER" />
+        <!--是否可退款（0：不能  1：可以）-->
+        <result property="isRefund" column="is_refund" javaType="int" jdbcType="INTEGER" />
+        <!--是否是热门场馆（0：不是  1：是）-->
+        <result property="isRecommend" column="is_recommend" javaType="int" jdbcType="INTEGER" />
+        <!--退款截止日期，以小时为单位-->
+        <result property="refundDeadline" column="refund_deadline" javaType="int" jdbcType="INTEGER" />
+        <!--创建时间-->
+        <result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+        <!--修改时间-->
+        <result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+        <!--状态（-1：已删除  0：正常  1：未删除）-->
+        <result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+        <!--排序-->
+        <result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段1-->
+        <result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+        <!--备用字段2-->
+        <result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+        <!--备用字段3-->
+        <result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+        <!--备用字段4-->
+        <result property="data4" column="data_4" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段5-->
+        <result property="data5" column="data_5" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段6-->
+        <result property="data6" column="data_6" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段7-->
+        <result property="data7" column="data_7" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段8-->
+        <result property="data8" column="data_8" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段9-->
+        <result property="data9" column="data_9" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段10-->
+        <result property="data10" column="data_10" javaType="Double" jdbcType="DOUBLE" />
+        <!--备用字段11-->
+        <result property="data11" column="data_11" javaType="Double" jdbcType="DOUBLE" />
+    </resultMap>
+
+    <insert id="add" parameterType="com.xgh.mng.entity.Venue">
+        <selectKey keyProperty="id" resultType="long" order="AFTER">
+            SELECT max(id)  AS value  from tb_venue
+        </selectKey>
+        INSERT INTO tb_venue
+            (id,inst_id,inst_code,unit_id,unit_code,name,address,zone_id,zone_name,zone_code,telephone,mobile,contact,sex,introduction,business_time,start_time,end_time,license_no,artificil_person,organization_type,license_url,picture_url,pic_real_path,id_card_front,id_card_back,bus_info,subway_info,service_info,hardware,is_check,is_refund,is_recommend,refund_deadline,create_date,update_date,status,ord,data_1,data_2,data_3,data_4,data_5,data_6,data_7,data_8,data_9,data_10,data_11)
+             VALUES
+            (#{id},#{instId},#{instCode},#{unitId},#{unitCode},#{name},#{address},#{zoneId},#{zoneName},#{zoneCode},#{telephone},#{mobile},#{contact},#{sex},#{introduction},#{businessTime},#{startTime},#{endTime},#{licenseNo},#{artificilPerson},#{organizationType},#{licenseUrl},#{pictureUrl},#{picRealPath},#{idCardFront},#{idCardBack},#{busInfo},#{subwayInfo},#{serviceInfo},#{hardware},#{isCheck},#{isRefund},#{isRecommend},#{refundDeadline},#{createDate},#{updateDate},#{status},#{ord},#{data1},#{data2},#{data3},#{data4},#{data5},#{data6},#{data7},#{data8},#{data9},#{data10},#{data11})
+    </insert>
+
+    <update id="update" parameterType="com.xgh.mng.entity.Venue">
+          UPDATE tb_venue
+		 SET
+			 inst_id = #{instId},
+			 inst_code = #{instCode},
+			 unit_id = #{unitId},
+			 unit_code = #{unitCode},
+			 name = #{name},
+			 address = #{address},
+			 zone_id = #{zoneId},
+			 zone_name = #{zoneName},
+			 zone_code = #{zoneCode},
+			 telephone = #{telephone},
+			 mobile = #{mobile},
+			 contact = #{contact},
+			 sex = #{sex},
+			 introduction = #{introduction},
+			 business_time = #{businessTime},
+			 start_time = #{startTime},
+			 end_time = #{endTime},
+			 license_no = #{licenseNo},
+			 artificil_person = #{artificilPerson},
+			 organization_type = #{organizationType},
+			 license_url = #{licenseUrl},
+			 picture_url = #{pictureUrl},
+			 pic_real_path = #{picRealPath},
+			 id_card_front = #{idCardFront},
+			 id_card_back = #{idCardBack},
+			 bus_info = #{busInfo},
+			 subway_info = #{subwayInfo},
+			 service_info = #{serviceInfo},
+			 hardware = #{hardware},
+			 is_check = #{isCheck},
+			 is_refund = #{isRefund},
+			 is_recommend = #{isRecommend},
+			 refund_deadline = #{refundDeadline},
+			 create_date = #{createDate},
+			 update_date = #{updateDate},
+			 status = #{status},
+			 ord = #{ord},
+			 data_1 = #{data1},
+			 data_2 = #{data2},
+			 data_3 = #{data3},
+			 data_4 = #{data4},
+			 data_5 = #{data5},
+			 data_6 = #{data6},
+			 data_7 = #{data7},
+			 data_8 = #{data8},
+			 data_9 = #{data9},
+			 data_10 = #{data10},
+			 data_11 = #{data11}
+		 WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+         delete from tb_venue where id = #{id}
+    </delete>
+
+    <update id="checkVenue" parameterType="com.xgh.mng.entity.Venue">
+        UPDATE tb_venue SET
+        update_date = #{updateDate},
+        is_check = #{isCheck}
+        WHERE id = #{id}
+    </update>
+</mapper>

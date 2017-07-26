@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.ICoachDaoR">
+
+    <!--实体映射-->
+    <resultMap id="coach" type="com.xgh.mng.entity.Coach">
+        <!--主键id-->
+        <id property="id" column="id" javaType="Long"/>
+        <!--教练名称-->
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+        <!--性别-->
+        <result property="sex" column="sex" javaType="int" jdbcType="INTEGER"/>
+        <!--生日-->
+        <result property="birthday" column="birthday" javaType="Date" jdbcType="TIMESTAMP"/>
+        <!--身高-->
+        <result property="height" column="height" javaType="Double" jdbcType="DOUBLE"/>
+        <!--体重-->
+        <result property="weight" column="weight" javaType="Double" jdbcType="DOUBLE"/>
+        <!--电话-->
+        <result property="telPhone" column="tel_phone" javaType="String" jdbcType="VARCHAR"/>
+        <!--教学经历-->
+        <result property="teachingCareer" column="teaching_career" javaType="String" jdbcType="VARCHAR"/>
+        <!--常驻场馆id-->
+        <result property="venueId" column="venue_id" javaType="long" jdbcType="BIGINT"/>
+        <!--常驻场馆名称（包含地址和场馆名）-->
+        <result property="venueName" column="venue_name" javaType="String" jdbcType="VARCHAR"/>
+        <!--运动类型id-->
+        <result property="sportId" column="sport_id" javaType="long" jdbcType="BIGINT"/>
+        <!--教练简介-->
+        <result property="intro" column="intro" javaType="String" jdbcType="VARCHAR"/>
+        <!--可教时间，相当于营业时间-->
+        <result property="businessTime" column="business_time" javaType="String" jdbcType="VARCHAR"/>
+        <!--身份证正面照路径-->
+        <result property="idCardFront" column="id_card_front" javaType="String" jdbcType="VARCHAR"/>
+        <!--身份证背面照路径-->
+        <result property="idCardBack" column="id_card_back" javaType="String" jdbcType="VARCHAR"/>
+        <!--是否认证（0：未认证  1：已认证）-->
+        <result property="isTrue" column="is_true" javaType="int" jdbcType="INTEGER"/>
+        <!--头像路径-->
+        <result property="headPath" column="head_path" javaType="String" jdbcType="VARCHAR"/>
+        <!--头像绝对路径-->
+        <result property="headRealPath" column="head_real_path" javaType="String" jdbcType="VARCHAR"/>
+        <!--是否通过审核（0：未审核  1：通过  2：未通过）-->
+        <result property="isCheck" column="is_check" javaType="int" jdbcType="INTEGER"/>
+        <!--是否是热门教练（0：不是  1：是）-->
+        <result property="isRecommend" column="is_recommend" javaType="int" jdbcType="INTEGER"/>
+        <!--状态（-1：已删除  0：正常  1：未删除）-->
+        <result property="status" column="status" javaType="int" jdbcType="INTEGER"/>
+        <!--创建时间-->
+        <result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP"/>
+        <!--修改时间-->
+        <result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP"/>
+        <!--备用字段1-->
+        <result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR"/>
+        <!--备用字段2-->
+        <result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR"/>
+        <!--备用字段3-->
+        <result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR"/>
+        <!--备用字段4-->
+        <result property="data4" column="data_4" javaType="long" jdbcType="BIGINT"/>
+        <!--备用字段5-->
+        <result property="data5" column="data_5" javaType="long" jdbcType="BIGINT"/>
+        <!--备用字段6-->
+        <result property="data6" column="data_6" javaType="long" jdbcType="BIGINT"/>
+        <!--备用字段7-->
+        <result property="data7" column="data_7" javaType="int" jdbcType="INTEGER"/>
+        <!--备用字段8-->
+        <result property="data8" column="data_8" javaType="int" jdbcType="INTEGER"/>
+        <!--备用字段9-->
+        <result property="data9" column="data_9" javaType="int" jdbcType="INTEGER"/>
+        <!--备用字段10-->
+        <result property="data10" column="data_10" javaType="Double" jdbcType="DOUBLE"/>
+        <!--备用字段11-->
+        <result property="data11" column="data_11" javaType="Double" jdbcType="DOUBLE"/>
+
+    </resultMap>
+
+    <select id="get" resultMap="coach" parameterType="long">
+        SELECT
+        *
+        FROM tb_coach
+        WHERE id = #{id}
+    </select>
+
+    <select id="getList" parameterType="hashmap" resultMap="coach">
+        select
+        *
+        from
+        tb_coach
+        <if test="keyGoods!= null">
+            <trim prefix="WHERE" prefixOverrides="AND |OR ">
+                <if test="id!= null and id!=''">
+                    and id = #{id} and status=1
+                </if>
+            </trim>
+        </if>
+        limit 0,10
+    </select>
+
+    <select id="getListPage" parameterType="hashmap" resultType="hashmap">
+        select
+        coach.id as id,
+        coach.name as name,
+        sex as sex,
+        height as height,
+        weight as weight,
+        is_true as isTrue,
+        is_check as isCheck,
+        tel_phone as telPhone,
+        is_recommend as isRecommend,
+        head_path as headPath,
+        head_real_path as headRealPath,
+        business_time as businessTime,
+        (date_format(from_days(to_days(now()) - to_days(birthday)),'%Y') + 0) as age,
+        venue_name as venueName,
+        k.name as sportsType
+        from
+        tb_coach coach,
+        tb_kinds k
+        where
+        coach.sport_id=k.id
+        and
+        coach.status >= 0
+        AND coach.data_4 = #{unitId}
+        AND coach.data_5=#{instId}
+        <if test="isRecommend!=null and isRecommend!=''">
+            AND coach.is_recommend = #{isRecommend}
+        </if>
+        <if test="name!=null and name!=''">
+            AND coach.name like '%${name}%'
+        </if>
+        <if test="isCheck!=null and isCheck!=''">
+            AND (coach.is_check = 0 OR coach.is_check = 2)
+        </if>
+        order by coach.data_7 desc
+        limit ${(page-1)*pagesize},${pagesize}
+    </select>
+
+    <select id="getRows" parameterType="hashmap" resultType="long">
+        select
+        count(*) from
+        tb_coach coach
+        where
+        status >=0
+        AND data_4 = #{unitId}
+        AND data_5=#{instId}
+        <if test="isRecommend!=null and isRecommend!=''">
+            AND coach.is_recommend = #{isRecommend}
+        </if>
+        <if test="name!=null and name!=''">
+            AND coach.name like '%${name}%'
+        </if>
+        <if test="isCheck!=null and isCheck!=''">
+            AND coach.is_check = 0 OR coach.is_check = 2
+        </if>
+
+    </select>
+
+
+</mapper>

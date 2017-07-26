@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.IKindsDaoW">
+
+	<resultMap type="com.xgh.mng.entity.Kinds" id="kindsMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="nid" column="nid" javaType="long" jdbcType="BIGINT" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<result property="instCode" column="inst_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="code" column="code" javaType="string" jdbcType="VARCHAR" />
+		<result property="parentCode" column="parent_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="preCode" column="pre_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="spellName" column="spell_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="spellFirstName" column="spell_first_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="level" column="level" javaType="int" jdbcType="INTEGER" />
+		<result property="sportUrl" column="sport_url" javaType="string" jdbcType="VARCHAR"/>
+		<result property="sportRealUrl" column="sport_real_url" javaType="string" jdbcType="VARCHAR"/>
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="remark" column="remark" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data_1" javaType="long" jdbcType="BIGINT" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.xgh.mng.entity.Kinds">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_kinds 
+		</selectKey>  
+		insert into tb_kinds
+		(
+		nid,
+		parent_id,
+		inst_id,
+		inst_code,
+		user_id,
+		code,
+		parent_code,
+		pre_code,
+		name,
+		spell_name,
+		spell_first_name,
+		level,
+		sport_url,
+		sport_real_url,
+		create_date,
+		update_date,
+		ord,
+		status,
+		remark,
+		data_1,
+		data_2,
+		data_3,
+		zone_code
+		)
+		values (
+		#{nid,jdbcType=BIGINT},
+		#{parentId,jdbcType=BIGINT},
+		#{instId,jdbcType=BIGINT},
+		#{instCode,jdbcType=VARCHAR},
+		#{userId,jdbcType=BIGINT},
+		#{code,jdbcType=VARCHAR},
+		#{parentCode,jdbcType=VARCHAR},
+		#{preCode,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{spellName,jdbcType=VARCHAR},
+		#{spellFirstName,jdbcType=VARCHAR},
+		#{level,jdbcType=INTEGER},
+		#{sportUrl,jdbcType=VARCHAR},
+		#{sportRealUrl,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{ord,jdbcType=BIGINT},
+		#{status,jdbcType=INTEGER},
+		#{remark,jdbcType=VARCHAR},
+		#{data1,jdbcType=BIGINT},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{zoneCode,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="addBatch" parameterType="com.xgh.mng.entity.Kinds">
+		insert into tb_kinds
+		(
+		nid,
+		parent_id,
+		inst_id,
+		inst_code,
+		user_id,
+		code,
+		parent_code,
+		pre_code,
+		name,
+		spell_name,
+		spell_first_name,
+		level,
+		sport_url,
+		sport_real_url,
+		create_date,
+		update_date,
+		ord,
+		status,
+		remark,
+		data_1,
+		data_2,
+		data_3,
+		zone_code
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.nid,jdbcType=BIGINT},
+			#{item.parentId,jdbcType=BIGINT},
+			#{item.instId,jdbcType=BIGINT},
+			#{item.instCode,jdbcType=VARCHAR},
+			#{item.userId,jdbcType=BIGINT},
+			#{item.code,jdbcType=VARCHAR},
+			#{item.parentCode,jdbcType=VARCHAR},
+			#{item.preCode,jdbcType=VARCHAR},
+			#{item.name,jdbcType=VARCHAR},
+			#{item.spellName,jdbcType=VARCHAR},
+			#{item.spellFirstName,jdbcType=VARCHAR},
+			#{item.level,jdbcType=INTEGER},
+			#{sportUrl,jdbcType=VARCHAR},
+			#{sportRealUrl,jdbcType=VARCHAR},
+			#{item.createDate,jdbcType=TIMESTAMP},
+			#{item.updateDate,jdbcType=TIMESTAMP},
+			#{item.ord,jdbcType=BIGINT},
+			#{item.status,jdbcType=INTEGER},
+			#{item.remark,jdbcType=VARCHAR},
+			#{item.data1,jdbcType=BIGINT},
+			#{item.data2,jdbcType=VARCHAR},
+			#{item.data3,jdbcType=VARCHAR},
+			#{item.zoneCode,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.xgh.mng.entity.Kinds">
+		update tb_kinds
+		set
+		nid = #{nid,jdbcType=BIGINT},
+		parent_id = #{parentId,jdbcType=BIGINT},
+		inst_id = #{instId,jdbcType=BIGINT},
+		inst_code = #{instCode,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=BIGINT},
+		code = #{code,jdbcType=VARCHAR},
+		parent_code = #{parentCode,jdbcType=VARCHAR},
+		pre_code = #{preCode,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		spell_name = #{spellName,jdbcType=VARCHAR},
+		spell_first_name = #{spellFirstName,jdbcType=VARCHAR},
+		level = #{level,jdbcType=INTEGER},
+		sport_url = #{sportUrl,jdbcType=VARCHAR},
+		sport_real_url = #{sportRealUrl,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		ord = #{ord,jdbcType=BIGINT},
+		status = #{status,jdbcType=INTEGER},
+		remark = #{remark,jdbcType=VARCHAR},
+		data_1 = #{data1,jdbcType=BIGINT},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR},
+		zone_code = #{zoneCode,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_kinds
+		where
+		id = #{id} 
+	</delete>
+</mapper>

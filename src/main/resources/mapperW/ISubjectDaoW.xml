@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.ISubjectDaoW">
+
+	<resultMap type="com.xgh.mng.entity.Subject" id="subjectMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<result property="instcode" column="inst_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitCode" column="unit_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="path" column="path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="iosFilePath" column="ios_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="androidFilePath" column="android_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="mobileFilePath" column="mobile_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="pcFilePath" column="pc_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectName" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectType" column="subject_type" javaType="int" jdbcType="INTEGER" />
+		<result property="subjectUrl" column="subject_url" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectContent" column="subject_content" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="remark" column="remark"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="subjectHint" column="subject_hint"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="sujectUrl" column="suject_url"  javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<insert id="add" parameterType="com.xgh.mng.entity.Subject">
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT max(id)  AS value  from tb_subject
+		</selectKey>
+		insert into tb_subject
+		(
+		inst_id,
+		inst_code,
+		unit_id,
+		unit_code,
+		user_id,
+		type,
+		path,
+		relative_path,
+		ios_file_path,
+		android_file_path,
+		mobile_file_path,
+		pc_file_path,
+		subject_name,
+		subject_type,
+		subject_url,
+		subject_content,
+		create_date,
+		update_date,
+		ord,
+		remark,
+		status,
+		subject_hint,
+		suject_url
+		)
+		values (
+		#{instId,jdbcType=BIGINT},
+		#{instCode,jdbcType=VARCHAR},
+		#{unitId,jdbcType=BIGINT},
+		#{unitCode,jdbcType=VARCHAR},
+		#{userId,jdbcType=BIGINT},
+		#{type,jdbcType=INTEGER},
+		#{path,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{iosFilePath,jdbcType=VARCHAR},
+		#{androidFilePath,jdbcType=VARCHAR},
+		#{mobileFilePath,jdbcType=VARCHAR},
+		#{pcFilePath,jdbcType=VARCHAR},
+		#{subjectName,jdbcType=VARCHAR},
+		#{subjectType,jdbcType=INTEGER},
+		#{subjectUrl,jdbcType=VARCHAR},
+		#{subjectContent,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{ord,jdbcType=INTEGER},
+		#{remark,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER},
+		#{subjectHint,jdbcType=VARCHAR},
+		#{sujectUrl,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.xgh.mng.entity.Subject">
+		update tb_subject
+		set
+		inst_id = #{instId,jdbcType=BIGINT},
+		inst_code = #{instCode,jdbcType=VARCHAR},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		unit_code = #{unitCode,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=BIGINT},
+		type = #{type,jdbcType=INTEGER},
+		path = #{path,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		ios_file_path = #{iosFilePath,jdbcType=VARCHAR},
+		android_file_path = #{androidFilePath,jdbcType=VARCHAR},
+		mobile_file_path = #{mobileFilePath,jdbcType=VARCHAR},
+		pc_file_path = #{pcFilePath,jdbcType=VARCHAR},
+		subject_name = #{subjectName,jdbcType=VARCHAR},
+		subject_type = #{subjectType,jdbcType=INTEGER},
+		subject_url = #{subjectUrl,jdbcType=VARCHAR},
+		subject_content = #{subjectContent,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		ord = #{ord,jdbcType=INTEGER},
+		remark = #{remark,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		subject_hint = #{subjectHint,jdbcType=VARCHAR},
+		suject_url = #{sujectUrl,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+</mapper>

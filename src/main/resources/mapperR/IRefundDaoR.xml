@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.IRefundDaoR">
+
+	<!--ʵ��ӳ��-->
+	<resultMap id="refundMap" type="com.xgh.mng.entity.Refund">
+		<!--主键id-->
+		<id property="id" column="id" javaType="Long" />
+		<!--用户id-->
+		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<!--订单id-->
+		<result property="orderId" column="order_id" javaType="long" jdbcType="BIGINT" />
+		<!--订单编号-->
+		<result property="orderNo" column="order_no" javaType="String" jdbcType="VARCHAR" />
+		<!--退款原因-->
+		<result property="reason" column="reason" javaType="String" jdbcType="VARCHAR" />
+		<!--退款金额-->
+		<result property="refunndMoney" column="refunnd_money" javaType="Double" jdbcType="DOUBLE" />
+		<!--退款批次号-->
+		<result property="batchNo" column="batch_no" javaType="String" jdbcType="VARCHAR" />
+		<!--退款状态（0：未退款 1：成功  2：失败）-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--退款时间-->
+		<result property="refundTime" column="refund_time" javaType="Date" jdbcType="TIMESTAMP" />
+		<!---->
+		<result property="createTime" column="create_time" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateTime" column="update_time" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--备用字段1-->
+		<result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段2-->
+		<result property="data2" column="data_2" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段3-->
+		<result property="data3" column="data_3" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段4-->
+		<result property="data4" column="data_4" javaType="Double" jdbcType="DOUBLE" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		 id,	member_id,	order_id,	order_no,	reason,	refunnd_money,	batch_no,	status,	refund_time,	update_time,	data_1,	data_2,	data_3,	data_4
+	</sql>
+
+	<select id="get" resultMap="refundMap" parameterType="java.lang.Long">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM tb_refund
+		 WHERE id = #{id}
+	</select>
+
+	<select id="getListPage" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			a.id,
+			a.order_no as orderNo,
+			a.reason,
+			a.create_time as createTime,
+		    a.status,
+			b.goods_name as goodsName,
+			b.order_amount as orderAmount,
+			b.trade_no as tradeNo,
+			c.account
+		FROM
+			tb_refund a
+		LEFT JOIN tb_order b ON a.order_id = b.id
+		LEFT JOIN tb_member_user c ON a.member_id = c.id
+		WHERE
+			1=1
+			<if test="account !=null and account!=''">
+			   AND c.account LIKE '%${account}%'
+			</if>
+			<if test="orderNo !=null and orderNo!=''">
+				AND b.order_no = #{orderNo}
+			</if>
+			<if test="startTime !=null and startTime!=''and endTime != null and endTime !=''">
+				AND a.create_time BETWEEN #{startTime} AND #{endTime}
+			</if>
+			<if test="status !=null and status!=''">
+				AND a.status = #{status}
+			</if>
+		ORDER BY
+			a.create_time DESC limit ${pagesize*(page-1)},${pagesize}
+
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="int">
+		SELECT
+	    COUNT(*)
+		FROM
+		tb_refund a
+		LEFT JOIN tb_order b ON a.order_id = b.id
+		LEFT JOIN tb_member_user c ON a.member_id = c.id
+		WHERE
+		1=1
+		<if test="account !=null and account!=''">
+			AND c.account LIKE '%${account}%'
+		</if>
+		<if test="orderNo !=null and orderNo!=''">
+			AND b.order_no = #{orderNo}
+		</if>
+		<if test="startTime !=null and startTime!=''and endTime != null and endTime !=''">
+			AND a.create_time BETWEEN #{startTime} AND #{endTime}
+		</if>
+		<if test="status !=null and status!=''">
+			AND a.status = #{status}
+		</if>
+	</select>
+</mapper>

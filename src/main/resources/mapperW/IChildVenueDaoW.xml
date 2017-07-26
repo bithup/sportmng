@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.IChildVenueDaoW">
+
+	<resultMap id="childVenueMap" type="com.xgh.mng.entity.ChildVenue">
+		<!--主键id-->
+		<id property="id" column="id" javaType="Long" />
+		<!--分场馆名称-->
+		<result property="venueName" column="venue_name" javaType="String" jdbcType="VARCHAR" />
+		<!--运动类型id-->
+		<result property="sportId" column="sport_id" javaType="long" jdbcType="BIGINT" />
+		<!--场馆编号-->
+		<result property="venueNo" column="venue_no" javaType="String" jdbcType="VARCHAR" />
+		<!--所属场馆id-->
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<!--主图存储路径-->
+		<result property="pictureUrl" column="picture_url" javaType="String" jdbcType="VARCHAR" />
+		<!--主图存储绝对路径-->
+		<result property="picRealPath" column="pic_real_path" javaType="String" jdbcType="VARCHAR" />
+		<!--单价-->
+		<result property="price" column="price" javaType="Double" jdbcType="DOUBLE" />
+		<!--优惠价-->
+		<result property="salesPrice" column="sales_price" javaType="Double" jdbcType="DOUBLE" />
+		<!--计量单位（1小时、1天等）-->
+		<result property="unit" column="unit" javaType="String" jdbcType="VARCHAR" />
+		<!--分场馆服务-->
+		<result property="serviceInfo" column="service_info" javaType="String" jdbcType="VARCHAR" />
+		<!--小提示-->
+		<result property="tips" column="tips" javaType="String" jdbcType="VARCHAR" />
+		<!--排序-->
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<!--场馆设备-->
+		<result property="facility" column="facility" javaType="String" jdbcType="VARCHAR" />
+		<!--是否是热门场馆（0：不是  1：是）-->
+		<result property="isRecommend" column="is_recommend" javaType="int" jdbcType="INTEGER" />
+		<!--容纳人数（**最大人数）-->
+		<result property="capacity" column="capacity" javaType="int" jdbcType="INTEGER" />
+		<!--状态（-1:已删除   0：正常  1:未删除）-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--备用字段1-->
+		<result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段2-->
+		<result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段3-->
+		<result property="data3" column="data_3" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段4-->
+		<result property="data4" column="data_4" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段5-->
+		<result property="data5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段6-->
+		<result property="data6" column="data_6" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段7-->
+		<result property="data7" column="data_7" javaType="Double" jdbcType="DOUBLE" />
+		<!--备用字段8-->
+		<result property="data8" column="data_8" javaType="Double" jdbcType="DOUBLE" />
+	</resultMap>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		 DELETE FROM tb_child_venue
+		 WHERE id = #{id}
+	</delete>
+
+	<insert id="insert" parameterType="com.xgh.mng.entity.ChildVenue">
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT max(id)  AS value  from tb_child_venue
+		</selectKey>
+		 INSERT INTO tb_child_venue
+ 		(id,venue_name,sport_id,venue_no,parent_id,picture_url,pic_real_path,price,sales_price,unit,service_info,tips,ord,facility,is_recommend,capacity,status,create_date,update_date,data_1,data_2,data_3,data_4,data_5,data_6,data_7,data_8)
+		 VALUES
+ 		(#{id},#{venueName},#{sportId},#{venueNo},#{parentId},#{pictureUrl},#{picRealPath},#{price},#{salesPrice},#{unit},#{serviceInfo},#{tips},#{ord},#{facility},#{isRecommend},#{capacity},#{status},#{createDate},#{updateDate},#{data1},#{data2},#{data3},#{data4},#{data5},#{data6},#{data7},#{data8})
+	</insert>
+
+	<update id="update" parameterType="com.xgh.mng.entity.ChildVenue">
+		 UPDATE tb_child_venue
+		 SET
+			 venue_name = #{venueName},
+			 sport_id = #{sportId},
+			 venue_no = #{venueNo},
+			 parent_id = #{parentId},
+			 picture_url = #{pictureUrl},
+			 pic_real_path = #{picRealPath},
+			 price = #{price},
+			 sales_price = #{salesPrice},
+			 unit = #{unit},
+			 service_info = #{serviceInfo},
+			 tips = #{tips},
+			 ord = #{ord},
+			 facility = #{facility},
+			 is_recommend = #{isRecommend},
+			 capacity = #{capacity},
+			 status = #{status},
+			 create_date = #{createDate},
+			 update_date = #{updateDate},
+			 data_1 = #{data1},
+			 data_2 = #{data2},
+			 data_3 = #{data3},
+			 data_4 = #{data4},
+			 data_5 = #{data5},
+			 data_6 = #{data6},
+			 data_7 = #{data7},
+			 data_8 = #{data8}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>

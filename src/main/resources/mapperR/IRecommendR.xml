@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.IRecommendDaoR">
+
+    <resultMap id="recommend" type="com.xgh.mng.entity.Recommend">
+        <!--主键id-->
+        <id property="id" column="id" javaType="Long" />
+        <!--会员id-->
+        <result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+        <!--类型（1：创意  2：挑毛病  3：吐槽）-->
+        <result property="kind" column="kind" javaType="int" jdbcType="INTEGER" />
+        <!--内容-->
+        <result property="context" column="context" javaType="String" jdbcType="VARCHAR" />
+        <!--回复-->
+        <result property="remart" column="remart" javaType="String" jdbcType="VARCHAR" />
+        <!--状态（-1：已删除  0：正常  1：未删除）-->
+        <result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+        <!--创建时间-->
+        <result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+        <!--修改时间-->
+        <result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+        <!--是否采纳（0：未采纳  1：已采纳）-->
+        <result property="abopt" column="abopt" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段1-->
+        <result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+        <!--备用字段2-->
+        <result property="data2" column="data_2" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段3-->
+        <result property="data3" column="data_3" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段4-->
+        <result property="data4" column="data_4" javaType="Double" jdbcType="DOUBLE" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+       id,member_id,kind,context,remart,status,create_date,abopt,data_1,data_2,data_3,data_4,update_date
+    </sql>
+    <select id="get" resultMap="recommend" parameterType="java.lang.Long">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tb_recommend
+        WHERE id = #{id}
+    </select>
+    <select id="getList" resultType="hashmap" parameterType="hashmap">
+        SELECT
+        tr.id,
+        tr.member_id,
+        tr.kind,
+        tr.context,
+        tr.remart,
+        tr.status,
+        tr.create_date,
+        tr.abopt,
+        tr.data_1,
+        tr.data_2,
+        tr.data_3,
+        tr.data_4,
+        tr.update_date,
+        td.nick_name
+        FROM tb_recommend tr
+        LEFT JOIN tb_member_user td
+        ON tr.memberid = td.id
+        WHERE
+        tr.status = 1
+        AND tr.kind = #{kind}
+        ORDER BY tr.create_date DESC
+        limit ${(page-1)*pageSize},${pageSize};
+    </select>
+    <select id="getListPage" resultType="hashmap" parameterType="hashmap">
+        SELECT
+        tr.id,
+        tr.member_id,
+        tr.kind,
+        tr.context,
+        tr.remart,
+        tr.status,
+        tr.create_date as createDate,
+        tr.abopt,
+        tr.update_date as updateDate,
+        td.nick_name,
+        td.account
+        FROM tb_recommend tr
+        LEFT JOIN tb_member_user td
+        ON tr.member_id = td.id
+        WHERE
+        tr.status >= 0
+        AND tr.kind = #{kind}
+        ORDER BY tr.create_date DESC
+        limit ${(page-1)*pageSize},${pageSize};
+    </select>
+    <select id="getRows" resultType="long" parameterType="java.lang.Long">
+        SELECT
+        count(*)
+        FROM tb_recommend tr
+        LEFT JOIN tb_member_user td
+        ON tr.member_id = td.id
+        WHERE
+        tr.status = 0
+        AND tr.kind = #{kind}
+    </select>
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.IExtensionAllocationDaoR">
+
+	<!--实体映射-->
+	<resultMap id="extensionAllocationResultMap" type="com.xgh.mng.entity.ExtensionAllocation">
+		<!--主键id-->
+		<id property="id" column="id" />
+		<!--推广类型（1：课程  3：场地）-->
+		<result property="extensionType" column="extension_type" javaType="int" jdbcType="INTEGER" />
+		<!--分配方式（1：按百分比例  2：按每单金额）-->
+		<result property="allocationType" column="allocation_type" javaType="int" jdbcType="INTEGER" />
+		<!--按比例分配一级推广百分比数值-->
+		<result property="proporLevelOne" column="propor_level_one" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按比例分配二级推广百分比数值-->
+		<result property="proporLevelTwo" column="propor_level_two" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按比例分配平台百分比数值-->
+		<result property="proporPlatform" column="propor_platform" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按每单金额分配一级推广每单金额-->
+		<result property="orderLevelOne" column="order_level_one" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按每单金额分配二级推广每单金额-->
+		<result property="orderLevelTwo" column="order_level_two" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按每单金额分配平台每单金额-->
+		<result property="orderPlatform" column="order_platform" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--启用状态（1：启用  2：未启用）-->
+		<result property="enableStatus" column="enable_status" javaType="int" jdbcType="INTEGER" />
+		<!--状态（1：正常 2：已删除）-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--扩展字段1-->
+		<result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+		<!--扩展字段2-->
+		<result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+		<!--扩展字段3-->
+		<result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		 id as id,
+	extension_type as extensionType,
+	allocation_type	as allocationType,
+	propor_level_one as proporLevelOne,
+	propor_level_two as proporLevelTwo,
+	propor_platform as proporPlatform,
+	order_level_one	as orderLevelOne,
+	order_level_two	as orderLevelTwo,
+	order_platform as orderPlatform,
+	create_date as createDate,
+	update_date	as updateDate,
+	enable_status as enableStatus,
+	status	 as status,
+	data_1	 as data1,
+	data_2	 as data2,
+	data_3	 as data3
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="get" resultMap="extensionAllocationResultMap" parameterType="java.lang.Long">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM tb_extension_allocation
+		 WHERE  status = 1  and id = #{id}
+	</select>
+
+	<!-- 查询（根据查询条件查询） -->
+	<select id="getList" resultType="hashmap" parameterType="hashmap">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM tb_extension_allocation
+		 WHERE   status = 1
+		AND extension_type = #{extensionType}
+	</select>
+
+	<!-- 查询（根据查询条件分页查询） -->
+	<select id="getListPage" resultMap="extensionAllocationResultMap" parameterType="hashmap">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM tb_extension_allocation
+		 WHERE   status = 1 
+		 limit ${(page-1)*pagesize},${pagesize} 
+	</select>
+
+	<!-- 查询（根据查询条件分页查询） -->
+	<select id="getListMapPage" resultType="hashmap"  parameterType="hashmap">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM tb_extension_allocation
+		 WHERE   status = 1 
+		 limit ${(page-1)*pagesize},${pagesize} 
+	</select>
+
+	<!-- 查询记录总数量（根据查询条件查询记录总数量） -->
+	<select id="getRows" resultType="long" parameterType="hashmap">
+		 SELECT 
+		 count(*)  
+		 FROM tb_extension_allocation
+		 WHERE   status = 1 
+	</select></mapper>

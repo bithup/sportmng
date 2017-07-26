@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.IVenueDaoR">
+
+    <!--场馆-->
+    <resultMap id="venueMap" type="com.xgh.mng.entity.Venue">
+        <!--主键id-->
+        <id property="id" column="id" javaType="Long" />
+        <!--行业id-->
+        <result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+        <!--行业编码-->
+        <result property="instCode" column="inst_code" javaType="String" jdbcType="VARCHAR" />
+        <!--代理id-->
+        <result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+        <!--代理编码-->
+        <result property="unitCode" column="unit_code" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆名称-->
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆详细地址-->
+        <result property="address" column="address" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆区域id-->
+        <result property="zoneId" column="zone_id" javaType="long" jdbcType="BIGINT" />
+        <!--场馆所属区域（省市区）-->
+        <result property="zoneName" column="zone_name" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆区域编码-->
+        <result property="zoneCode" column="zone_code" javaType="String" jdbcType="VARCHAR" />
+        <!--联系电话-->
+        <result property="telephone" column="telephone" javaType="String" jdbcType="VARCHAR" />
+        <!--移动电话-->
+        <result property="mobile" column="mobile" javaType="String" jdbcType="VARCHAR" />
+        <!--联系人-->
+        <result property="contact" column="contact" javaType="String" jdbcType="VARCHAR" />
+        <!--联系人性别（0：男  1：女）-->
+        <result property="sex" column="sex" javaType="int" jdbcType="INTEGER" />
+        <!--场馆简介-->
+        <result property="introduction" column="introduction" javaType="String" jdbcType="VARCHAR" />
+        <!--营业时间-->
+        <result property="businessTime" column="business_time" javaType="String" jdbcType="VARCHAR" />
+        <!--营业起始时间-->
+        <result property="startTime" column="start_time" javaType="String" jdbcType="VARCHAR" />
+        <!--营业截止时间-->
+        <result property="endTime" column="end_time" javaType="String" jdbcType="VARCHAR" />
+        <!--营业执照编号-->
+        <result property="licenseNo" column="license_no" javaType="String" jdbcType="VARCHAR" />
+        <!--法人代表-->
+        <result property="artificilPerson" column="artificil_person" javaType="String" jdbcType="VARCHAR" />
+        <!--组成形式-->
+        <result property="organizationType" column="organization_type" javaType="String" jdbcType="VARCHAR" />
+        <!--营业执照存储路径-->
+        <result property="licenseUrl" column="license_url" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆主图存储路径-->
+        <result property="pictureUrl" column="picture_url" javaType="String" jdbcType="VARCHAR" />
+        <!--场馆主图存储绝对路径-->
+        <result property="picRealPath" column="pic_real_path" javaType="String" jdbcType="VARCHAR" />
+        <!--经营者身份证正面照路径-->
+        <result property="idCardFront" column="id_card_front" javaType="String" jdbcType="VARCHAR" />
+        <!--经营者身份证背面照路径-->
+        <result property="idCardBack" column="id_card_back" javaType="String" jdbcType="VARCHAR" />
+        <!--公交交通信息-->
+        <result property="busInfo" column="bus_info" javaType="String" jdbcType="VARCHAR" />
+        <!--地铁交通信息-->
+        <result property="subwayInfo" column="subway_info" javaType="String" jdbcType="VARCHAR" />
+        <!--服务信息（如免费WiFi，免费停车）-->
+        <result property="serviceInfo" column="service_info" javaType="String" jdbcType="VARCHAR" />
+        <!--硬件设备信息（如多少个跑步机、游泳池）-->
+        <result property="hardware" column="hardware" javaType="String" jdbcType="VARCHAR" />
+        <!--是否通过审核（0：未审核  1：通过  2：未通过）-->
+        <result property="isCheck" column="is_check" javaType="int" jdbcType="INTEGER" />
+        <!--是否可退款（0：不能  1：可以）-->
+        <result property="isRefund" column="is_refund" javaType="int" jdbcType="INTEGER" />
+        <!--是否是热门场馆（0：不是  1：是）-->
+        <result property="isRecommend" column="is_recommend" javaType="int" jdbcType="INTEGER" />
+        <!--退款截止日期，以小时为单位-->
+        <result property="refundDeadline" column="refund_deadline" javaType="int" jdbcType="INTEGER" />
+        <!--创建时间-->
+        <result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+        <!--修改时间-->
+        <result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+        <!--状态（-1：已删除  0：正常  1：未删除）-->
+        <result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+        <!--排序-->
+        <result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段1-->
+        <result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+        <!--备用字段2-->
+        <result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+        <!--备用字段3-->
+        <result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+        <!--备用字段4-->
+        <result property="data4" column="data_4" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段5-->
+        <result property="data5" column="data_5" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段6-->
+        <result property="data6" column="data_6" javaType="long" jdbcType="BIGINT" />
+        <!--备用字段7-->
+        <result property="data7" column="data_7" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段8-->
+        <result property="data8" column="data_8" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段9-->
+        <result property="data9" column="data_9" javaType="int" jdbcType="INTEGER" />
+        <!--备用字段10-->
+        <result property="data10" column="data_10" javaType="Double" jdbcType="DOUBLE" />
+        <!--备用字段11-->
+        <result property="data11" column="data_11" javaType="Double" jdbcType="DOUBLE" />
+    </resultMap>
+
+    <select id="get" parameterType="long" resultMap="venueMap">
+        select * from tb_venue where id = #{id}
+    </select>
+
+    <select id="getListPage" parameterType="hashmap" resultType="hashmap">
+        select a.id,a.name,a.address,a.zone_name as zoneName,a.mobile,a.contact,a.picture_url as pictureUrl,a.pic_real_path as picRealPath,a.business_time as businessTime,a.is_refund as isRefund,a.is_check as isCheck,a.is_recommend as isRecommend
+        from tb_venue a
+        where a.status = 0
+        <if test="name!=null and name!=''">
+            AND a.name like '%${name}%'
+        </if>
+        <if test="isCheck!=null and isCheck!=''">
+            AND a.is_check = 0 OR a.is_check = 2
+        </if>
+        ORDER BY a.ord DESC
+        limit ${pagesize*(page-1)},${pagesize}
+    </select>
+
+    <select id="getRows" parameterType="hashmap" resultType="int">
+         select COUNT(*) from tb_venue a
+            where a.status = 0
+            <if test="name!=null and name!=''">
+                AND a.name like '%${name}%'
+            </if>
+            <if test="isCheck!=null and isCheck!=''">
+                AND a.is_check = 0 OR a.is_check = 2
+            </if>
+    </select>
+
+    <select id="getVenue" parameterType="hashmap" resultType="hashmap">
+        SELECT
+        id,
+        name
+        FROM
+        tb_venue
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="1==1">
+                AND inst_id = #{instId} AND status = 0
+            </if>
+        </trim>
+    </select>
+</mapper>

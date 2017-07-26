@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.IWithdrawalsDaoW">
+
+	<!--ʵ��ӳ��-->
+	<resultMap id="withdrawalsMap" type="com.xgh.mng.entity.Withdrawals">
+		<!--主键id-->
+		<id property="id" column="id" javaType="Long" />
+		<!--行业id-->
+		<result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<!--行业编码-->
+		<result property="instCode" column="inst_code" javaType="String" jdbcType="VARCHAR" />
+		<!--代理id-->
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<!--代理编码-->
+		<result property="unitCode" column="unit_code" javaType="String" jdbcType="VARCHAR" />
+		<!--用户id-->
+		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<!--会员类型，1，学生，2 场地，3、教师-->
+		<result property="memberType" column="member_type" javaType="int" jdbcType="INTEGER" />
+		<!--实提金额-->
+		<result property="realAmount" column="real_amount" javaType="Double" jdbcType="DOUBLE" />
+		<!--提现金额-->
+		<result property="cashWithdrawalAmount" column="cash_withdrawal_amount" javaType="Double" jdbcType="DOUBLE" />
+		<!--手续费-->
+		<result property="fee" column="fee" javaType="Double" jdbcType="DOUBLE" />
+		<!--姓名-->
+		<result property="name" column="name" javaType="String" jdbcType="VARCHAR" />
+		<!--身份证号-->
+		<result property="idCard" column="id_card" javaType="String" jdbcType="VARCHAR" />
+		<!--手机号-->
+		<result property="mobile" column="mobile" javaType="String" jdbcType="VARCHAR" />
+		<!--提现到账户（银行卡或支付宝号）-->
+		<result property="drawAccount" column="draw_account" javaType="String" jdbcType="VARCHAR" />
+		<!--提现状态（0.待审核；1.已审核(拒绝）；2完成（已打款））-->
+		<result property="drawStatus" column="draw_status" javaType="int" jdbcType="INTEGER" />
+		<!--支付时间-->
+		<result property="payTime" column="pay_time" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--状态：0.正常；-1删除-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--备注-->
+		<result property="remark" column="remark" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段-->
+		<result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段-->
+		<result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段-->
+		<result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段-->
+		<result property="data4" column="data_4" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段-->
+		<result property="data5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段-->
+		<result property="data6" column="data_6" javaType="Double" jdbcType="DOUBLE" />
+	</resultMap>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		 DELETE FROM tb_withdrawals
+		 WHERE id = #{id}
+	</delete>
+
+	<insert id="insert" parameterType="com.xgh.mng.entity.Withdrawals">
+		 INSERT INTO tb_withdrawals
+ 		(id,inst_id,inst_code,unit_id,unit_code,member_id,member_type,real_amount,cash_withdrawal_amount,fee,name,id_card,mobile,draw_account,draw_status,pay_time,create_date,update_date,status,remark,data_1,data_2,data_3,data_4,data_5,data_6) 
+		 VALUES 
+ 		(#{id},#{instId},#{instCode},#{unitId},#{unitCode},#{memberId},#{memberType},#{realAmount},#{cashWithdrawalAmount},#{fee},#{name},#{idCard},#{mobile},#{drawAccount},#{drawStatus},#{payTime},#{createDate},#{updateDate},#{status},#{remark},#{data1},#{data2},#{data3},#{data4},#{data5},#{data6}) 
+	</insert>
+
+	<update id="update" parameterType="com.xgh.mng.entity.Withdrawals">
+		 UPDATE tb_withdrawals
+		 SET 
+			 inst_id = #{instId},
+			 inst_code = #{instCode},
+			 unit_id = #{unitId},
+			 unit_code = #{unitCode},
+			 member_id = #{memberId},
+			 member_type = #{memberType},
+			 real_amount = #{realAmount},
+			 cash_withdrawal_amount = #{cashWithdrawalAmount},
+			 fee = #{fee},
+			 name = #{name},
+			 id_card = #{idCard},
+			 mobile = #{mobile},
+			 draw_account = #{drawAccount},
+			 draw_status = #{drawStatus},
+			 pay_time = #{payTime},
+			 create_date = #{createDate},
+			 update_date = #{updateDate},
+			 status = #{status},
+			 remark = #{remark},
+			 data_1 = #{data1},
+			 data_2 = #{data2},
+			 data_3 = #{data3},
+			 data_4 = #{data4},
+			 data_5 = #{data5},
+			 data_6 = #{data6}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.IWithdrawalsRateDaoW">
+
+	<!--实体映射-->
+	<resultMap id="withdrawalsRateResultMap" type="com.xgh.mng.entity.WithdrawalsRate">
+		<!--主键id-->
+		<id property="id" column="id" />
+		<!--提现费计算方式（1：按百分比例  2：按每笔提现金额）-->
+		<result property="withdrawalsType" column="withdrawals_type" javaType="int" jdbcType="INTEGER" />
+		<!--按比例计算提现费百分比数值-->
+		<result property="withdrawalsPropor" column="withdrawals_propor" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按每笔金额每笔提现费-->
+		<result property="withdrawalsMoney" column="withdrawals_money" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--启用状态（1：启用  2：未启用）-->
+		<result property="enableStatus" column="enable_status" javaType="int" jdbcType="INTEGER" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--启用状态（1：正常  2：已删除）-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--扩展字段1-->
+		<result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+		<!--扩展字段2-->
+		<result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+		<!--扩展字段3-->
+		<result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!--删除：根据主键ID逻辑删除-->
+	<delete id="delete" parameterType="java.lang.Long">
+		 update tb_withdrawals_rate
+		 set status=2  WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="add" parameterType="com.xgh.mng.entity.WithdrawalsRate">
+		 INSERT INTO tb_withdrawals_rate
+ 		(id,withdrawals_type,withdrawals_propor,withdrawals_money,enable_status,create_date,update_date,status,data_1,data_2,data_3)
+		 VALUES 
+ 		(#{id},#{withdrawalsType},#{withdrawalsPropor},#{withdrawalsMoney},#{enableStatus},#{createDate},#{updateDate},#{status},#{data1},#{data2},#{data3})
+	</insert>
+
+	<!-- 修 改-->
+	<update id="update" parameterType="com.xgh.mng.entity.WithdrawalsRate">
+		 UPDATE tb_withdrawals_rate
+		 SET 
+			 withdrawals_type = #{withdrawalsType},
+			 withdrawals_propor = #{withdrawalsPropor},
+			 withdrawals_money = #{withdrawalsMoney},
+			 enable_status = #{enableStatus},
+			 create_date = #{createDate},
+			 update_date = #{updateDate},
+			 status = #{status},
+			 data_1 = #{data1},
+			 data_2 = #{data2},
+			 data_3 = #{data3}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>

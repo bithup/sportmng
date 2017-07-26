@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.IMemberUserDaoW">
+
+	<resultMap id="memberUserMap" type="com.xgh.mng.entity.MemberUser">
+		<!--主键id-->
+		<id property="id" column="id" javaType="Long" />
+		<!--会员标示uuid-->
+		<result property="uuid" column="uuid" javaType="String" jdbcType="VARCHAR" />
+		<!--所属代理-->
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<!--账号（手机号）-->
+		<result property="account" column="account" javaType="String" jdbcType="VARCHAR" />
+		<!--密码（md5加密）-->
+		<result property="password" column="password" javaType="String" jdbcType="VARCHAR" />
+		<!--是否验证手机号，默认没有验证（0：未验证  1：已验证）-->
+		<result property="isVerify" column="is_verify" javaType="int" jdbcType="INTEGER" />
+		<!--注册ip-->
+		<result property="registerIp" column="register_ip" javaType="String" jdbcType="VARCHAR" />
+		<!--登录类型（1：安卓  2：IOS  3：微信）-->
+		<result property="loginType" column="login_type" javaType="String" jdbcType="VARCHAR" />
+		<!--本次登录ip-->
+		<result property="loginIp" column="login_ip" javaType="String" jdbcType="VARCHAR" />
+		<!--注册设备（1：安卓  2：IOS  3：PC）-->
+		<result property="regDevice" column="reg_device" javaType="String" jdbcType="VARCHAR" />
+		<!--头像路径-->
+		<result property="headPath" column="head_path" javaType="String" jdbcType="VARCHAR" />
+		<!--头像绝对路径-->
+		<result property="headRealPath" column="head_real_path" javaType="String" jdbcType="VARCHAR" />
+		<!--真实姓名-->
+		<result property="realName" column="real_name" javaType="String" jdbcType="VARCHAR" />
+		<!--身份证-->
+		<result property="idCard" column="id_card" javaType="String" jdbcType="VARCHAR" />
+		<!--昵称-->
+		<result property="nickName" column="nick_name" javaType="String" jdbcType="VARCHAR" />
+		<!--性别-->
+		<result property="sex" column="sex" javaType="int" jdbcType="INTEGER" />
+		<!--个性签名-->
+		<result property="signature" column="signature" javaType="String" jdbcType="VARCHAR" />
+		<!--生日-->
+		<result property="birthday" column="birthday" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--身高-->
+		<result property="heigth" column="heigth" javaType="Double" jdbcType="DOUBLE" />
+		<!--体重-->
+		<result property="weigth" column="weigth" javaType="Double" jdbcType="DOUBLE" />
+		<!--运动爱好-->
+		<result property="hobby" column="hobby" javaType="String" jdbcType="VARCHAR" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--区域编码-->
+		<result property="zoneCode" column="zone_code" javaType="String" jdbcType="VARCHAR" />
+		<!--区域id-->
+		<result property="zoneId" column="zone_id" javaType="long" jdbcType="BIGINT" />
+		<!--微信openId-->
+		<result property="openId" column="open_id" javaType="String" jdbcType="VARCHAR" />
+		<!--登录时间-->
+		<result property="loginDate" column="login_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--备注-->
+		<result property="remark" column="remark" javaType="String" jdbcType="VARCHAR" />
+		<!--会员来源（1：前台注册  2：后台注册）-->
+		<result property="userResource" column="user_resource" javaType="int" jdbcType="INTEGER" />
+		<!--是否参与代理（0：否  1：是）-->
+		<result property="isAgent" column="is_agent" javaType="int" jdbcType="INTEGER" />
+		<!--状态（-1:已删除 0：正常 1:未删除）-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!---->
+		<result property="payPassword" column="pay_password" javaType="String" jdbcType="VARCHAR" />
+		<!---->
+		<result property="purseBalance" column="purse_balance" javaType="Double" jdbcType="DOUBLE" />
+		<!--备用字段1-->
+		<result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段2-->
+		<result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段3-->
+		<result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段4-->
+		<result property="data4" column="data_4" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段5-->
+		<result property="data5" column="data_5" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段6-->
+		<result property="data6" column="data_6" javaType="long" jdbcType="BIGINT" />
+		<!--备用字段7-->
+		<result property="data7" column="data_7" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段8-->
+		<result property="data8" column="data_8" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段9-->
+		<result property="data9" column="data_9" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段10-->
+		<result property="data10" column="data_10" javaType="Double" jdbcType="DOUBLE" />
+		<!--备用字段11-->
+		<result property="data11" column="data_11" javaType="Double" jdbcType="DOUBLE" />
+	</resultMap>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		 DELETE FROM tb_member_user
+		 WHERE id = #{id}
+	</delete>
+
+	<insert id="insert" parameterType="com.xgh.mng.entity.MemberUser">
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT max(id)  AS value  from tb_member_user
+		</selectKey>
+		 INSERT INTO tb_member_user
+ 		(id,uuid,unit_id,account,password,is_verify,register_ip,login_type,login_ip,reg_device,head_path,head_real_path,real_name,id_card,nick_name,sex,signature,birthday,heigth,weigth,hobby,create_date,update_date,zone_code,zone_id,open_id,login_date,remark,user_resource,is_agent,status,pay_password,purse_balance,data_1,data_2,data_3,data_4,data_5,data_6,data_7,data_8,data_9,data_10,data_11) 
+		 VALUES 
+ 		(#{id},#{uuid},#{unitId},#{account},#{password},#{isVerify},#{registerIp},#{loginType},#{loginIp},#{regDevice},#{headPath},#{headRealPath},#{realName},#{idCard},#{nickName},#{sex},#{signature},#{birthday},#{heigth},#{weigth},#{hobby},#{createDate},#{updateDate},#{zoneCode},#{zoneId},#{openId},#{loginDate},#{remark},#{userResource},#{isAgent},#{status},#{payPassword},#{purseBalance},#{data1},#{data2},#{data3},#{data4},#{data5},#{data6},#{data7},#{data8},#{data9},#{data10},#{data11}) 
+	</insert>
+
+
+	<update id="update" parameterType="com.xgh.mng.entity.MemberUser">
+		 UPDATE tb_member_user
+		 SET 
+			 uuid = #{uuid},
+			 unit_id = #{unitId},
+			 account = #{account},
+			 password = #{password},
+			 is_verify = #{isVerify},
+			 register_ip = #{registerIp},
+			 login_type = #{loginType},
+			 login_ip = #{loginIp},
+			 reg_device = #{regDevice},
+			 head_path = #{headPath},
+			 head_real_path = #{headRealPath},
+			 real_name = #{realName},
+			 id_card = #{idCard},
+			 nick_name = #{nickName},
+			 sex = #{sex},
+			 signature = #{signature},
+			 birthday = #{birthday},
+			 heigth = #{heigth},
+			 weigth = #{weigth},
+			 hobby = #{hobby},
+			 create_date = #{createDate},
+			 update_date = #{updateDate},
+			 zone_code = #{zoneCode},
+			 zone_id = #{zoneId},
+			 open_id = #{openId},
+			 login_date = #{loginDate},
+			 remark = #{remark},
+			 user_resource = #{userResource},
+			 is_agent = #{isAgent},
+			 status = #{status},
+			 pay_password = #{payPassword},
+			 purse_balance = #{purseBalance},
+			 data_1 = #{data1},
+			 data_2 = #{data2},
+			 data_3 = #{data3},
+			 data_4 = #{data4},
+			 data_5 = #{data5},
+			 data_6 = #{data6},
+			 data_7 = #{data7},
+			 data_8 = #{data8},
+			 data_9 = #{data9},
+			 data_10 = #{data10},
+			 data_11 = #{data11}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>

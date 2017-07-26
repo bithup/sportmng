@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.ITransactionRecordDaoR">
+
+	<!--ʵ��ӳ��-->
+	<resultMap id="transactionRecordMap" type="com.xgh.mng.entity.TransactionRecord">
+		<!---->
+		<id property="id" column="id" javaType="Long" />
+		<!--行业id-->
+		<result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<!--行业编码-->
+		<result property="instCode" column="inst_code" javaType="String" jdbcType="VARCHAR" />
+		<!--用户id-->
+		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<!--用户类型1，学生，2 场地，3、教师-->
+		<result property="memberType" column="member_type" javaType="int" jdbcType="INTEGER" />
+		<!--交易类型：1.支出，2收入-->
+		<result property="transType" column="trans_type" javaType="int" jdbcType="INTEGER" />
+		<!--交易来源：1买课程；2.定场地；3活动；4；提现；5充值-->
+		<result property="sources" column="sources" javaType="int" jdbcType="INTEGER" />
+		<!--交易金额-->
+		<result property="transMoney" column="trans_money" javaType="Double" jdbcType="DOUBLE" />
+		<!--交易时间-->
+		<result property="transTime" column="trans_time" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--状态：0.正常；-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--备注-->
+		<result property="remark" column="remark" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段-->
+		<result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段-->
+		<result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段-->
+		<result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+		<!--备用字段-->
+		<result property="data4" column="data_4" javaType="Double" jdbcType="DOUBLE" />
+		<!--备用字段-->
+		<result property="data5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<!--备用字段-->
+		<result property="data6" column="data_6" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+
+	<select id="get" resultMap="transactionRecordMap" parameterType="java.lang.Long">
+		 SELECT
+		 *
+		 FROM tb_transaction_record
+		 WHERE id = #{id}
+	</select>
+</mapper>

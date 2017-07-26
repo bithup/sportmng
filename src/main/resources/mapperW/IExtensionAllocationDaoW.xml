@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.write.IExtensionAllocationDaoW">
+
+	<!--实体映射-->
+	<resultMap id="extensionAllocationResultMap" type="com.xgh.mng.entity.ExtensionAllocation">
+		<!--主键id-->
+		<id property="id" column="id" />
+		<!--推广类型（1：课程  2：场地）-->
+		<result property="extensionType" column="extension_type" javaType="int" jdbcType="INTEGER" />
+		<!--分配方式（1：按百分比例  2：按每单金额）-->
+		<result property="allocationType" column="allocation_type" javaType="int" jdbcType="INTEGER" />
+		<!--按比例分配一级推广百分比数值-->
+		<result property="proporLevelOne" column="propor_level_one" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按比例分配二级推广百分比数值-->
+		<result property="proporLevelTwo" column="propor_level_two" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按比例分配平台百分比数值-->
+		<result property="proporPlatform" column="propor_platform" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按每单金额分配一级推广每单金额-->
+		<result property="orderLevelOne" column="order_level_one" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按每单金额分配二级推广每单金额-->
+		<result property="orderLevelTwo" column="order_level_two" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--按每单金额分配平台每单金额-->
+		<result property="orderPlatform" column="order_platform" javaType="BigDecimal" jdbcType="DECIMAL" />
+		<!--创建时间-->
+		<result property="createDate" column="create_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--修改时间-->
+		<result property="updateDate" column="update_date" javaType="Date" jdbcType="TIMESTAMP" />
+		<!--启用状态（1：启用  2：未启用）-->
+		<result property="enableStatus" column="enable_status" javaType="int" jdbcType="INTEGER" />
+		<!--状态（1：正常 2：已删除）-->
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<!--扩展字段1-->
+		<result property="data1" column="data_1" javaType="String" jdbcType="VARCHAR" />
+		<!--扩展字段2-->
+		<result property="data2" column="data_2" javaType="String" jdbcType="VARCHAR" />
+		<!--扩展字段3-->
+		<result property="data3" column="data_3" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!--删除：根据主键ID逻辑删除-->
+	<delete id="delete" parameterType="java.lang.Long">
+		 update tb_extension_allocation
+		 set status=2  WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="add" parameterType="com.xgh.mng.entity.ExtensionAllocation">
+		 INSERT INTO tb_extension_allocation
+ 		(id,extension_type,allocation_type,propor_level_one,propor_level_two,propor_platform,order_level_one,order_level_two,order_platform,create_date,update_date,enable_status,status,data_1,data_2,data_3)
+		 VALUES 
+ 		(#{id},#{extensionType},#{allocationType},#{proporLevelOne},#{proporLevelTwo},#{proporPlatform},#{orderLevelOne},#{orderLevelTwo},#{orderPlatform},#{createDate},#{updateDate},#{enableStatus},#{status},#{data1},#{data2},#{data3})
+	</insert>
+
+	<!-- 修 改-->
+	<update id="update" parameterType="com.xgh.mng.entity.ExtensionAllocation">
+		 UPDATE tb_extension_allocation
+		 SET 
+			 extension_type = #{extensionType},
+			 allocation_type = #{allocationType},
+			 propor_level_one = #{proporLevelOne},
+			 propor_level_two = #{proporLevelTwo},
+			 propor_platform = #{proporPlatform},
+			 order_level_One = #{orderLevelOne},
+			 order_level_two = #{orderLevelTwo},
+			 order_platform = #{orderPlatform},
+			 create_date = #{createDate},
+			 update_date = #{updateDate},
+			 enable_status = #{enableStatus},
+			 status = #{status},
+			 data_1 = #{data1},
+			 data_2 = #{data2},
+			 data_3 = #{data3}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>

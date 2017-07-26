@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgh.mng.dao.read.ISubjectDaoR">
+	<resultMap type="com.xgh.mng.entity.Subject" id="subjectMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="instId" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<result property="instCode" column="inst_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitCode" column="unit_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="path" column="path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="iosFilePath" column="ios_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="androidFilePath" column="android_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="mobileFilePath" column="mobile_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="pcFilePath" column="pc_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectName" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectType" column="subject_type" javaType="int" jdbcType="INTEGER" />
+		<result property="subjectUrl" column="subject_url" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectContent" column="subject_content" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="remark" column="remark"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="subjectHint" column="subject_hint"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="sujectUrl" column="suject_url"  javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<resultMap type="java.util.Map" id="subjectMap2">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="INST_ID" column="inst_id" javaType="long" jdbcType="BIGINT" />
+		<result property="INST_CODE" column="inst_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_CODE" column="unit_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="PATH" column="path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="IOS_FILE_PATH" column="ios_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="ANDROID_FILE_PATH" column="android_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="MOBILE_FILE_PATH" column="mobile_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="PC_FILE_PATH" column="pc_file_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_NAME" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_TYPE" column="subject_type" javaType="int" jdbcType="INTEGER" />
+		<result property="SUBJECT_URL" column="subject_url" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_CONTENT" column="subject_content" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="REMARK" column="remark"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="SUBJECT_HINT" column="subject_hint"  javaType="string" jdbcType="VARCHAR"/>
+		<result property="SUJECT_URL" column="suject_url"  javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="get" parameterType="long" resultMap="subjectMap">
+		select * from tb_subject where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="hashmap" resultMap="subjectMap">
+		select
+		*
+		from
+		tb_subject
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="id!= null and id!=''">
+				and id = #{id}
+				</if>
+			</trim>
+		limit 0,10
+	</select>
+
+	<select id="getListPage" parameterType="hashmap" resultType="hashmap">
+		select
+		ac.id AS id,
+		ac.inst_id AS instId,
+		ac.inst_code AS instCode,
+		ac.unit_id AS unitId,
+		ac.unit_code AS unitCode,
+		ac.user_id AS userId,
+		ac.type AS type,
+		ac.path AS path,
+		ac.relative_path AS relativePath,
+		ac.ios_file_path AS iosFilePath,
+		ac.android_file_path AS androidFilePath,
+		ac.mobile_file_path AS mobileFilePath,
+		ac.pc_file_path AS pcFilePath,
+		ac.subject_name AS subjectName,
+		ac.subject_type AS subjectType,
+		ac.subject_url AS subjectUrl,
+		ac.subject_content AS subjectContent,
+		ac.create_date AS createDate,
+		ac.update_date AS updateDate,
+		ac.ord AS ord,
+		ac.remark AS remark,
+		ac.status AS status,
+		ac.subject_hint AS subjecHint,
+		ac.suject_url AS sujectUrl
+		from
+		tb_subject ac
+		where
+		ac.status = 1
+		AND ac.unit_id = #{unitId}
+		order by ord desc
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_subject
+		where
+		status = 1
+		AND unit_id = #{unitId}
+	</select>
+
+	<select id="getSubjectTree" parameterType="hashmap" resultType="hashmap">
+		select
+		sub.id as id,
+		CONCAT(sub.type,sub.subject_type) as pid,
+		sub.subject_name as text
+		from tb_subject sub
+		where status = 1
+		and unit_id = #{unitId}
+		and subject_type &lt;=2
+	</select>
+
+</mapper>
